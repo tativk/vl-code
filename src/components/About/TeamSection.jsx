@@ -6,11 +6,18 @@ gsap.registerPlugin(ScrollTrigger);
 
 const TEAM = [
   {
-    name: "محسن مرادی",
+    name: "علی مرادی",
     role: "مدیر پروژه",
     desc: "هماهنگی مسیر اجرا، زمان‌بندی و ارتباط شفاف با کارفرما.",
     initial: "م",
     photo: "/team/4.png",
+  },
+    {
+    name: "امین محمدنژاد",
+    role: "طراح رابط کاربری",
+    desc: "طراحی و دیزاین صفحات ",
+    initial: "م",
+    photo: "/team/5.png",
   },
   {
     name: "آرمین گماسایی",

@@ -1,297 +1,118 @@
 import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiArrowDownLeft } from "react-icons/fi";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const Hero = () => {
-  const sectionRef = useRef(null);
-  const eyebrowRef = useRef(null);
-  const titleRef = useRef(null);
-  const descriptionRef = useRef(null);
-  const scrollRef = useRef(null);
+const AboutHero = () => {
+  const rootRef = useRef(null);
   const visualRef = useRef(null);
-  const lineRef = useRef(null);
+  const titleRef = useRef(null);
+  const descRef = useRef(null);
+  const scrollRef = useRef(null);
 
   useLayoutEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      const reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      /*
-       * Initial state
-       */
-
-      gsap.set(
-        [
-          eyebrowRef.current,
-          titleRef.current,
-          descriptionRef.current,
-          scrollRef.current,
-        ],
-        {
-          opacity: 0,
-          y: 35,
-        }
-      );
-
-      gsap.set(lineRef.current, {
-        scaleX: 0,
-        transformOrigin: "right center",
-      });
-
-      /*
-       * Entrance
-       */
-
-      const intro = gsap.timeline({
-        defaults: {
-          ease: "power3.out",
-        },
-      });
-
-      intro
-        .to(eyebrowRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: reduceMotion ? 0 : 0.7,
-        })
-        .to(
-          titleRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: reduceMotion ? 0 : 0.9,
-          },
-          "-=0.4"
-        )
-        .to(
-          descriptionRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: reduceMotion ? 0 : 0.7,
-          },
-          "-=0.45"
-        )
-        .to(
-          scrollRef.current,
-          {
-            opacity: 1,
-            y: 0,
-            duration: reduceMotion ? 0 : 0.6,
-          },
-          "-=0.35"
-        )
-        .to(
-          lineRef.current,
-          {
-            scaleX: 1,
-            duration: reduceMotion ? 0 : 1,
-            ease: "expo.out",
-          },
-          "-=0.3"
-        );
-
-      if (reduceMotion) {
+      if (reduce) {
+        gsap.set(rootRef.current, { autoAlpha: 1 });
         return;
       }
 
-      /*
-       * Desktop
-       */
+      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+      tl.fromTo(
+        rootRef.current,
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.8 }
+      )
+        .from(
+          visualRef.current,
+          { autoAlpha: 0, scale: 0.6, duration: 1.4 },
+          0.1
+        )
+        .from(
+          titleRef.current.querySelectorAll(".about-hero__title-line"),
+          { yPercent: 110, duration: 1, stagger: 0.08 },
+          0.3
+        )
+        .from(
+          descRef.current,
+          { autoAlpha: 0, y: 24, duration: 0.7 },
+          "-=0.4"
+        )
+        .from(
+          scrollRef.current,
+          { autoAlpha: 0, duration: 0.6 },
+          "-=0.2"
+        );
 
-      mm.add("(min-width: 1024px)", () => {
-        const titleParallax = gsap.to(titleRef.current, {
-          y: -55,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        });
-
-        const visualParallax = gsap.to(visualRef.current, {
-          y: 70,
-          rotate: 3,
-          scale: 1.06,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: 1.5,
-          },
-        });
-
-        return () => {
-          titleParallax.scrollTrigger?.kill();
-          titleParallax.kill();
-
-          visualParallax.scrollTrigger?.kill();
-          visualParallax.kill();
-        };
+      gsap.to(visualRef.current, {
+        backgroundPosition: "100% 0%",
+        duration: 10,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
       });
 
-      /*
-       * Tablet
-       */
-
-      mm.add(
-        "(min-width: 768px) and (max-width: 1023px)",
-        () => {
-          const titleParallax = gsap.to(titleRef.current, {
-            y: -30,
-            ease: "none",
-            scrollTrigger: {
-              trigger: section,
-              start: "top top",
-              end: "bottom top",
-              scrub: 1.5,
-            },
-          });
-
-          return () => {
-            titleParallax.scrollTrigger?.kill();
-            titleParallax.kill();
-          };
-        }
-      );
-
-      /*
-       * Mobile
-       */
-
-      mm.add("(max-width: 767px)", () => {
-        /*
-         * روی موبایل پارالاکس عنوان حذف می‌شود.
-         * چون حرکت زیاد روی صفحه کوچک باعث بهم‌ریختگی می‌شود.
-         */
-
-        const visualAnimation = gsap.to(visualRef.current, {
-          y: 30,
-          scale: 1.03,
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "bottom top",
-            scrub: 2,
-          },
-        });
-
-        return () => {
-          visualAnimation.scrollTrigger?.kill();
-          visualAnimation.kill();
-        };
+      gsap.to(".about-hero__visual-orbit", {
+        rotate: 360,
+        duration: 20,
+        repeat: -1,
+        ease: "linear",
       });
 
-      return () => {
-        mm.revert();
-      };
-    }, section);
+      gsap.to(".about-hero__visual-core", {
+        scale: 1.2,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+      });
+    }, rootRef);
 
-    return () => {
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      className="about-hero"
-      aria-labelledby="about-hero-title"
-    >
+    <section className="about-hero" ref={rootRef} style={{ visibility: "hidden" }}>
       <div className="about-hero__inner">
-
-        <div
-          ref={eyebrowRef}
-          className="about-hero__eyebrow"
-        >
-          <span className="about-hero__eyebrow-number">
-            01
-          </span>
-
-          <span>
-            درباره‌ی ولورا کد
-          </span>
-        </div>
-
-        <div
-          ref={visualRef}
-          className="about-hero__visual"
-          aria-hidden="true"
-        >
-          <div className="about-hero__visual-ring about-hero__visual-ring--one" />
-          <div className="about-hero__visual-ring about-hero__visual-ring--two" />
-          <div className="about-hero__visual-glow" />
+        <div className="about-hero__visual" ref={visualRef} aria-hidden="true">
+          <div className="about-hero__visual-orbit" />
           <div className="about-hero__visual-core" />
+          <div className="about-hero__visual-dot" />
         </div>
 
-        <div className="about-hero__content">
-
-          <h1
-            ref={titleRef}
-            id="about-hero-title"
-            className="about-hero__title"
-          >
-            <span>تجربه‌های</span>
-
-            <span className="about-hero__title-accent">
-              دیجیتال
-            </span>
-
-            <span>
-              فقط دیده نمی‌شوند.
-            </span>
-
-            <span className="about-hero__title-small">
-              تجربه می‌شوند.
-            </span>
-          </h1>
-
-          <div
-            ref={descriptionRef}
-            className="about-hero__description"
-          >
-            <span className="about-hero__description-line" />
-
-            <p>
-              ما طراحی، توسعه و حرکت را کنار هم قرار می‌دهیم
-              تا هر محصول دیجیتال، فراتر از یک صفحه‌ی زیبا،
-              یک تجربه‌ی ماندگار باشد.
-            </p>
-          </div>
-
+        <div className="about-hero__eyebrow">
+          <span className="about-hero__eyebrow-line" />
+          استودیوی توسعه‌ی خلاق
         </div>
 
-        <div
-          ref={scrollRef}
-          className="about-hero__scroll"
-        >
-          <span>اسکرول کنید</span>
+        <h1 className="about-hero__title" ref={titleRef}>
+          <span className="about-hero__title-line">ما تجربه‌های</span>
+          <span className="about-hero__title-line about-hero__title-line--accent">
+            دیجیتال را
+          </span>
+          <span className="about-hero__title-line about-hero__title-line--small">
+            می‌سازیم
+          </span>
+        </h1>
 
-          <FiArrowDownLeft />
+        <div className="about-hero__description" ref={descRef}>
+          <p>
+            ولورا کد رابط‌هایی طراحی و می‌سازد که در آن‌ها حرکت، تایپوگرافی و
+            مهندسی مثل یک سیستم واحد کار می‌کنند — برای برندهایی که می‌خواهند
+            حضور دیجیتالشان حس شده باشد، نه فقط ساخته‌شده.
+          </p>
         </div>
 
-        <div
-          ref={lineRef}
-          className="about-hero__bottom-line"
-        />
-
+        <div className="about-hero__scroll" ref={scrollRef}>
+          <span className="about-hero__scroll-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M12 5v14M19 12l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
+          اسکرول کنید
+        </div>
       </div>
     </section>
   );
 };
 
-export default Hero;
+export default AboutHero;

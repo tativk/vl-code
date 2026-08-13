@@ -62,259 +62,223 @@ const AboutProcess = () => {
 
   const [activeStep, setActiveStep] = useState(0);
 
-useLayoutEffect(() => {
-  const section = sectionRef.current;
-  const track = trackRef.current;
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
 
-  if (!section || !track) return;
+    if (!section || !track) return;
 
-  const ctx = gsap.context(() => {
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    // لیسنرهای resize/load باید بیرون از gsap.context باشند
+    // چون خودِ gsap.context مقدار return شده‌ی داخلش را cleanup نمی‌کند
+    const refresh = () => ScrollTrigger.refresh();
 
-    const mm = gsap.matchMedia();
+    const ctx = gsap.context(() => {
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
 
-    /*
-     * =====================================================
-     * DESKTOP
-     * =====================================================
-     */
+      // چون بخش با dir="rtl" رندر می‌شود، محتوای اضافه از سمت چپ
+      // بیرون می‌زند، پس جهت جابجایی باید مثبت باشد نه منفی.
+      const isRTL =
+        getComputedStyle(section).direction === "rtl";
+      const dirSign = isRTL ? 1 : -1;
 
-    mm.add("(min-width: 861px)", () => {
-      if (reduceMotion) {
+      const mm = gsap.matchMedia();
+
+      /*
+       * =====================================================
+       * DESKTOP
+       * =====================================================
+       */
+
+      mm.add("(min-width: 861px)", () => {
+        if (reduceMotion) {
+          gsap.set(track, {
+            clearProps: "transform",
+          });
+
+          if (progressRef.current) {
+            gsap.set(progressRef.current, {
+              width: "100%",
+            });
+          }
+
+          return;
+        }
+
+        const getDistance = () => {
+          const totalWidth = track.scrollWidth;
+          const viewportWidth = section.clientWidth;
+
+          return Math.max(
+            0,
+            totalWidth - viewportWidth
+          );
+        };
+
+        gsap.set(track, { x: 0 });
+
+        const horizontalTween = gsap.to(track, {
+          x: () => dirSign * getDistance(),
+
+          ease: "none",
+
+          overwrite: true,
+
+          scrollTrigger: {
+            trigger: section,
+
+            start: "top top",
+
+            // طول اسکرول دقیقاً برابر با فاصله‌ی افقی واقعی است،
+            // بدون فاصله‌ی مرده‌ی مصنوعی؛ همین باعث هماهنگی کامل
+            // اسکرول و حرکت می‌شود.
+            end: () => `+=${Math.max(getDistance(), 1)}`,
+
+            scrub: 1,
+
+            pin: true,
+
+            pinSpacing: true,
+
+            anticipatePin: 1,
+
+            invalidateOnRefresh: true,
+
+            fastScrollEnd: true,
+
+            onUpdate: (self) => {
+              if (progressRef.current) {
+                gsap.set(progressRef.current, {
+                  width: `${self.progress * 100}%`,
+                });
+              }
+
+              const idx = Math.min(
+                processSteps.length - 1,
+                Math.floor(
+                  self.progress * processSteps.length
+                )
+              );
+
+              setActiveStep((prev) =>
+                prev === idx ? prev : idx
+              );
+            },
+          },
+        });
+
+        const cards = stepsRef.current.filter(Boolean);
+
+        if (cards.length) {
+          gsap.fromTo(
+            cards,
+            {
+              opacity: 0.35,
+              y: 25,
+            },
+            {
+              opacity: 1,
+              y: 0,
+
+              duration: 0.7,
+
+              stagger: 0.12,
+
+              ease: "power3.out",
+
+              scrollTrigger: {
+                trigger: section,
+
+                start: "top 75%",
+
+                once: true,
+              },
+            }
+          );
+        }
+
+        return () => {
+          horizontalTween.kill();
+
+          if (horizontalTween.scrollTrigger) {
+            horizontalTween.scrollTrigger.kill();
+          }
+        };
+      });
+
+      /*
+       * =====================================================
+       * MOBILE / TABLET
+       * =====================================================
+       */
+
+      mm.add("(max-width: 860px)", () => {
         gsap.set(track, {
           clearProps: "transform",
         });
 
         if (progressRef.current) {
           gsap.set(progressRef.current, {
-            width: "100%",
+            clearProps: "all",
           });
         }
 
-        return;
-      }
+        const cards = stepsRef.current.filter(Boolean);
 
-      const getDistance = () => {
-        const totalWidth = track.scrollWidth;
-
-        const viewportWidth = window.innerWidth;
-
-        return Math.max(
-          0,
-          totalWidth - viewportWidth
-        );
-      };
-
-      /*
-       * مقدار اولیه
-       */
-
-      gsap.set(track, {
-        x: 0,
-      });
-
-      /*
-       * انیمیشن اصلی
-       */
-
-      const horizontalTween = gsap.to(track, {
-        x: () => -getDistance(),
-
-        ease: "none",
-
-        overwrite: true,
-
-        scrollTrigger: {
-          trigger: section,
-
-          start: "top top",
-
-          end: () => {
-            const distance = getDistance();
-
-            return `+=${Math.max(
-              distance,
-              window.innerHeight
-            )}`;
-          },
-
-          scrub: 1,
-
-          pin: true,
-
-          pinSpacing: true,
-
-          anticipatePin: 1,
-
-          invalidateOnRefresh: true,
-
-          fastScrollEnd: true,
-
-          onUpdate: (self) => {
-            /*
-             * Progress
-             */
-
-            if (progressRef.current) {
-              gsap.set(progressRef.current, {
-                width: `${self.progress * 100}%`,
-              });
-            }
-          },
-        },
-      });
-
-      /*
-       * کارت‌ها هنگام رسیدن به viewport
-       */
-
-      const cards = stepsRef.current.filter(Boolean);
-
-      if (cards.length) {
-        gsap.fromTo(
-          cards,
-          {
-            opacity: 0.35,
-            y: 25,
-          },
-          {
+        if (!cards.length || reduceMotion) {
+          gsap.set(cards, {
+            clearProps: "all",
             opacity: 1,
             y: 0,
+          });
 
-            duration: 0.7,
-
-            stagger: 0.12,
-
-            ease: "power3.out",
-
-            scrollTrigger: {
-              trigger: section,
-
-              start: "top 75%",
-
-              once: true,
-            },
-          }
-        );
-      }
-
-      /*
-       * Cleanup
-       */
-
-      return () => {
-        horizontalTween.kill();
-
-        if (horizontalTween.scrollTrigger) {
-          horizontalTween.scrollTrigger.kill();
+          return;
         }
-      };
-    });
 
-
-    /*
-     * =====================================================
-     * MOBILE / TABLET
-     * =====================================================
-     */
-
-    mm.add("(max-width: 860px)", () => {
-      /*
-       * خیلی مهم:
-       * هیچ transform یا pin از دسکتاپ
-       * نباید روی موبایل باقی بماند.
-       */
-
-      gsap.set(track, {
-        clearProps: "transform",
-      });
-
-      if (progressRef.current) {
-        gsap.set(progressRef.current, {
-          clearProps: "all",
-        });
-      }
-
-      /*
-       * کارت‌ها به صورت عمودی reveal می‌شوند.
-       */
-
-      const cards = stepsRef.current.filter(Boolean);
-
-      if (!cards.length || reduceMotion) {
-        gsap.set(cards, {
-          clearProps: "all",
-          opacity: 1,
-          y: 0,
-        });
-
-        return;
-      }
-
-      cards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          {
-            opacity: 0,
-            y: 35,
-          },
-          {
-            opacity: 1,
-            y: 0,
-
-            duration: 0.7,
-
-            ease: "power3.out",
-
-            scrollTrigger: {
-              trigger: card,
-
-              start: "top 82%",
-
-              end: "top 55%",
-
-              toggleActions:
-                "play none none reverse",
+        cards.forEach((card, index) => {
+          gsap.fromTo(
+            card,
+            {
+              opacity: 0,
+              y: 35,
             },
-          }
-        );
+            {
+              opacity: 1,
+              y: 0,
+
+              duration: 0.7,
+
+              ease: "power3.out",
+
+              scrollTrigger: {
+                trigger: card,
+
+                start: "top 82%",
+
+                end: "top 55%",
+
+                toggleActions: "play none none reverse",
+
+                onEnter: () => setActiveStep(index),
+              },
+            }
+          );
+        });
       });
-    });
+    }, section);
 
-
-    /*
-     * =====================================================
-     * REFRESH
-     * =====================================================
-     */
-
-    const refresh = () => {
-      ScrollTrigger.refresh();
-    };
-
-    window.addEventListener(
-      "resize",
-      refresh
-    );
-
-    requestAnimationFrame(refresh);
+    window.addEventListener("resize", refresh);
+    window.addEventListener("load", refresh);
+    const rafId = requestAnimationFrame(refresh);
 
     return () => {
-      window.removeEventListener(
-        "resize",
-        refresh
-      );
-
-      mm.revert();
+      window.removeEventListener("resize", refresh);
+      window.removeEventListener("load", refresh);
+      cancelAnimationFrame(rafId);
+      ctx.revert();
     };
-  }, section);
-
-  return () => {
-    ctx.revert();
-  };
-}, []);
+  }, []);
 
   return (
     <section
@@ -348,7 +312,7 @@ useLayoutEffect(() => {
               className="about-process__heading"
             >
               از ایده
-              <br />
+
               تا تجربه.
             </h2>
           </div>
