@@ -68,8 +68,6 @@ const AboutProcess = () => {
 
     if (!section || !track) return;
 
-    // لیسنرهای resize/load باید بیرون از gsap.context باشند
-    // چون خودِ gsap.context مقدار return شده‌ی داخلش را cleanup نمی‌کند
     const refresh = () => ScrollTrigger.refresh();
 
     const ctx = gsap.context(() => {
@@ -77,43 +75,41 @@ const AboutProcess = () => {
         "(prefers-reduced-motion: reduce)"
       ).matches;
 
-      // چون بخش با dir="rtl" رندر می‌شود، محتوای اضافه از سمت چپ
-      // بیرون می‌زند، پس جهت جابجایی باید مثبت باشد نه منفی.
-      const isRTL =
-        getComputedStyle(section).direction === "rtl";
-      const dirSign = isRTL ? 1 : -1;
-
       const mm = gsap.matchMedia();
 
       /*
        * =====================================================
-       * DESKTOP
+       * DESKTOP / TABLET (چیدمان افقی)
+       * چون CSS دقیقاً همین‌جا breakpoint می‌ذاره (767px)،
+       * جاوااسکریپت هم باید همون مرز رو استفاده کنه، وگرنه
+       * بین ۷۶۸ تا ۸۶۰ چیدمان با رفتار اسکرول ناهماهنگ میشه.
        * =====================================================
        */
 
-      mm.add("(min-width: 861px)", () => {
+      mm.add("(min-width: 768px)", () => {
         if (reduceMotion) {
-          gsap.set(track, {
-            clearProps: "transform",
-          });
+          gsap.set(track, { clearProps: "transform" });
 
           if (progressRef.current) {
-            gsap.set(progressRef.current, {
-              width: "100%",
-            });
+            gsap.set(progressRef.current, { width: "100%" });
           }
 
           return;
         }
 
+        // نکته‌ی کلیدی: باید جهت خودِ track رو چک کنیم،
+        // نه جهت section را — چون CSS مسیر حرکت افقی
+        // (.about-process__track و __steps) رو عمداً
+        // direction: ltr نگه داشته، حتی وقتی کل صفحه rtl هست.
+        const isTrackRTL =
+          getComputedStyle(track).direction === "rtl";
+        const dirSign = isTrackRTL ? -1 : 1;
+
         const getDistance = () => {
           const totalWidth = track.scrollWidth;
           const viewportWidth = section.clientWidth;
 
-          return Math.max(
-            0,
-            totalWidth - viewportWidth
-          );
+          return Math.max(0, totalWidth - viewportWidth);
         };
 
         gsap.set(track, { x: 0 });
@@ -122,29 +118,17 @@ const AboutProcess = () => {
           x: () => dirSign * getDistance(),
 
           ease: "none",
-
           overwrite: true,
 
           scrollTrigger: {
             trigger: section,
-
             start: "top top",
-
-            // طول اسکرول دقیقاً برابر با فاصله‌ی افقی واقعی است،
-            // بدون فاصله‌ی مرده‌ی مصنوعی؛ همین باعث هماهنگی کامل
-            // اسکرول و حرکت می‌شود.
             end: () => `+=${Math.max(getDistance(), 1)}`,
-
             scrub: 1,
-
             pin: true,
-
             pinSpacing: true,
-
             anticipatePin: 1,
-
             invalidateOnRefresh: true,
-
             fastScrollEnd: true,
 
             onUpdate: (self) => {
@@ -173,25 +157,16 @@ const AboutProcess = () => {
         if (cards.length) {
           gsap.fromTo(
             cards,
-            {
-              opacity: 0.35,
-              y: 25,
-            },
+            { opacity: 0.35, y: 25 },
             {
               opacity: 1,
               y: 0,
-
               duration: 0.7,
-
               stagger: 0.12,
-
               ease: "power3.out",
-
               scrollTrigger: {
                 trigger: section,
-
                 start: "top 75%",
-
                 once: true,
               },
             }
@@ -209,19 +184,15 @@ const AboutProcess = () => {
 
       /*
        * =====================================================
-       * MOBILE / TABLET
+       * MOBILE (چیدمان عمودی — دقیقاً هم‌راستا با CSS در max-width:767px)
        * =====================================================
        */
 
-      mm.add("(max-width: 860px)", () => {
-        gsap.set(track, {
-          clearProps: "transform",
-        });
+      mm.add("(max-width: 767px)", () => {
+        gsap.set(track, { clearProps: "transform" });
 
         if (progressRef.current) {
-          gsap.set(progressRef.current, {
-            clearProps: "all",
-          });
+          gsap.set(progressRef.current, { clearProps: "all" });
         }
 
         const cards = stepsRef.current.filter(Boolean);
@@ -239,27 +210,17 @@ const AboutProcess = () => {
         cards.forEach((card, index) => {
           gsap.fromTo(
             card,
-            {
-              opacity: 0,
-              y: 35,
-            },
+            { opacity: 0, y: 35 },
             {
               opacity: 1,
               y: 0,
-
               duration: 0.7,
-
               ease: "power3.out",
-
               scrollTrigger: {
                 trigger: card,
-
                 start: "top 82%",
-
                 end: "top 55%",
-
                 toggleActions: "play none none reverse",
-
                 onEnter: () => setActiveStep(index),
               },
             }
@@ -289,22 +250,15 @@ const AboutProcess = () => {
     >
       <div className="about-process__inner">
 
-        {/* =====================================
-            HEADER
-        ====================================== */}
-
+        {/* HEADER */}
         <header className="about-process__header">
-
           <div
             ref={headingRef}
             className="about-process__heading-wrap"
           >
             <div className="about-process__label">
               <span>03</span>
-
-              <span>
-                چطور کار می‌کنیم
-              </span>
+              <span>چطور کار می‌کنیم</span>
             </div>
 
             <h2
@@ -312,34 +266,21 @@ const AboutProcess = () => {
               className="about-process__heading"
             >
               از ایده
-
               تا تجربه.
             </h2>
           </div>
 
-          <div
-            ref={introRef}
-            className="about-process__intro"
-          >
+          <div ref={introRef} className="about-process__intro">
             <p>
               هر پروژه مسیر خودش را دارد، اما یک اصل
               همیشه ثابت می‌ماند: قبل از حرکت، باید
               بدانیم به کجا می‌رویم.
             </p>
           </div>
-
         </header>
 
-
-        {/* =====================================
-            HORIZONTAL TRACK
-        ====================================== */}
-
-        <div
-          ref={trackRef}
-          className="about-process__track"
-        >
-
+        {/* HORIZONTAL TRACK */}
+        <div ref={trackRef} className="about-process__track">
           <div className="about-process__line">
             <span
               ref={progressRef}
@@ -348,7 +289,6 @@ const AboutProcess = () => {
           </div>
 
           <div className="about-process__steps">
-
             {processSteps.map((step, index) => {
               const Icon = step.icon;
 
@@ -359,27 +299,17 @@ const AboutProcess = () => {
                     stepsRef.current[index] = element;
                   }}
                   className={`about-process__step ${
-                    activeStep === index
-                      ? "is-active"
-                      : ""
+                    activeStep === index ? "is-active" : ""
                   }`}
                 >
-
-                  {/* Marker */}
-
                   <div className="about-process__step-marker">
                     <span className="about-process__step-number">
                       {step.number}
                     </span>
                   </div>
 
-
-                  {/* Content */}
-
                   <div className="about-process__step-content">
-
                     <div className="about-process__step-top">
-
                       <span className="about-process__step-english">
                         {step.english}
                       </span>
@@ -390,7 +320,6 @@ const AboutProcess = () => {
                       >
                         <Icon />
                       </span>
-
                     </div>
 
                     <h3 className="about-process__step-title">
@@ -400,29 +329,19 @@ const AboutProcess = () => {
                     <p className="about-process__step-description">
                       {step.description}
                     </p>
-
                   </div>
-
-
-                  {/* Glow */}
 
                   <div
                     className="about-process__step-glow"
                     aria-hidden="true"
                   />
-
                 </article>
               );
             })}
-
           </div>
         </div>
 
-
-        {/* =====================================
-            MOBILE STEP INDICATOR
-        ====================================== */}
-
+        {/* MOBILE PROGRESS DOTS (CSS الان همیشه مخفیش می‌کنه) */}
         <div
           className="about-process__mobile-progress"
           aria-hidden="true"
@@ -430,11 +349,7 @@ const AboutProcess = () => {
           {processSteps.map((step, index) => (
             <span
               key={step.number}
-              className={
-                activeStep === index
-                  ? "is-active"
-                  : ""
-              }
+              className={activeStep === index ? "is-active" : ""}
             />
           ))}
         </div>

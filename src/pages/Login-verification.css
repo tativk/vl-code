@@ -1,81 +1,103 @@
-/* ========== متغیرها ========== */
-:root {
-  --purple: #7c3aed;
-  --blue: #3b82f6;
-  --pink: #ec4899;
-  --bg-dark: #0f0a1e;
-  --text-light: #f5f3ff;
-  --text-muted: #a5a0b8;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --input-bg: rgba(255, 255, 255, 0.07);
-  --error-color: #ff6b6b;
-  --radius: 16px;
-  --transition: 0.3s ease;
-}
+/* =========================================
+   AUTH — Velora Code Theme
+   کامل + اصلاح box-sizing و چیدمان input
+========================================= */
 
-/* ========== Reset و پایه ========== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
-  background: var(--bg-dark);
-  color: var(--text-light);
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ========== کانتینر اصلی ========== */
 .auth-container {
+  --auth-bg: #03040c;
+  --auth-text: #f5f7ff;
+  --auth-muted: rgba(245, 247, 255, 0.58);
+  --auth-line: rgba(255, 255, 255, 0.12);
+
+  --auth-cyan: #00d9ff;
+  --auth-blue: #315cff;
+  --auth-violet: #8b2cff;
+
+  --auth-gradient: linear-gradient(
+    100deg,
+    var(--auth-cyan) 0%,
+    var(--auth-blue) 48%,
+    var(--auth-violet) 100%
+  );
+
+  --auth-glass: rgba(255, 255, 255, 0.05);
+  --auth-glass-border: rgba(255, 255, 255, 0.12);
+  --auth-input-bg: rgba(255, 255, 255, 0.04);
+  --auth-error: #ff6b6b;
+
+  --auth-radius: 18px;
+
   position: relative;
+  min-height: 100svh;
   width: 100%;
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #0f0a1e 0%, #1a1035 40%, #2a1a4a 100%);
+  background: var(--auth-bg);
+  font-family: "Vazirmatn", "Segoe UI", sans-serif;
+  color: var(--auth-text);
+  direction: rtl;
+  text-align: right;
+  padding: 24px;
 }
 
-/* ========== بلاب‌های متحرک ========== */
+/* Box-sizing کامل برای جلوگیری از سرریز input */
+.auth-container,
+.auth-container *,
+.auth-container *::before,
+.auth-container *::after {
+  box-sizing: border-box;
+}
+
+/* پس‌زمینه محو */
+.auth-container::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("../../public/Asets/back.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+/* بلاب‌های نئونی */
 .blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.5;
+  filter: blur(90px);
+  opacity: 0.35;
+  pointer-events: none;
   animation: float 8s infinite alternate ease-in-out;
 }
 
 .blob-1 {
-  width: 400px;
-  height: 400px;
-  background: var(--purple);
-  top: -100px;
-  left: -100px;
-  animation-duration: 10s;
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, var(--auth-cyan), transparent 70%);
+  top: -120px;
+  left: -120px;
+  animation-duration: 11s;
 }
 
 .blob-2 {
-  width: 350px;
-  height: 350px;
-  background: var(--blue);
-  bottom: -120px;
-  right: -80px;
-  animation-duration: 12s;
+  width: 360px;
+  height: 360px;
+  background: radial-gradient(circle, var(--auth-violet), transparent 70%);
+  bottom: -140px;
+  right: -100px;
+  animation-duration: 13s;
   animation-delay: 2s;
 }
 
 .blob-3 {
-  width: 250px;
-  height: 250px;
-  background: var(--pink);
-  top: 50%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, var(--auth-blue), transparent 70%);
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   animation-duration: 9s;
@@ -91,19 +113,19 @@ body {
   }
 }
 
-/* ========== کارت شیشه‌ای ========== */
+/* کارت شیشه‌ای */
 .auth-card {
   position: relative;
   z-index: 10;
-  width: 420px;
-  max-width: 90%;
-  background: var(--glass-bg);
+  width: 100%;
+  max-width: 420px;
+  background: var(--auth-glass);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius);
+  border: 1px solid var(--auth-glass-border);
+  border-radius: var(--auth-radius);
   padding: 40px 30px;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 217, 255, 0.03);
   animation: fadeIn 0.6s ease-out;
 }
 
@@ -118,56 +140,59 @@ body {
   }
 }
 
-/* ========== برند ========== */
+/* برند */
 .brand {
   text-align: center;
   margin-bottom: 30px;
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
+  width: 62px;
+  height: 62px;
   margin: 0 auto 15px;
-  background: linear-gradient(135deg, var(--purple), var(--blue), var(--pink));
-  border-radius: 18px;
+  background: var(--auth-gradient);
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 32px;
   font-weight: bold;
   color: white;
-  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 8px 25px rgba(0, 217, 255, 0.3), 0 0 40px rgba(139, 44, 255, 0.2);
 }
 
 .brand h1 {
   font-size: 28px;
-  background: linear-gradient(135deg, var(--purple), var(--pink));
+  background: var(--auth-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 5px;
+  font-weight: 700;
 }
 
 .brand p {
-  color: var(--text-muted);
+  color: var(--auth-muted);
   font-size: 14px;
 }
 
-/* ========== فرم ========== */
+/* فرم */
 form h2 {
   font-size: 22px;
   margin-bottom: 8px;
   text-align: center;
+  color: var(--auth-text);
+  font-weight: 600;
 }
 
 .subtitle {
   text-align: center;
-  color: var(--text-muted);
+  color: var(--auth-muted);
   margin-bottom: 25px;
   font-size: 14px;
 }
 
-/* ========== اینپوت‌ها ========== */
+/* اینپوت‌ها */
 .input-group {
   position: relative;
   margin-bottom: 20px;
@@ -175,68 +200,74 @@ form h2 {
 
 .input-icon {
   position: absolute;
-  right: 15px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-muted);
+  color: var(--auth-muted);
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .input-group input {
   width: 100%;
-  padding: 15px 45px 15px 15px; /* فاصله از راست برای آیکون */
-  background: var(--input-bg);
-  border: 1px solid var(--glass-border);
+  padding: 14px 44px 14px 14px; /* راست برای آیکون */
+  background: var(--auth-input-bg);
+  border: 1px solid var(--auth-glass-border);
   border-radius: 12px;
-  color: var(--text-light);
+  color: var(--auth-text);
   font-size: 16px;
+  line-height: normal;
   outline: none;
-  transition: var(--transition);
-  direction: ltr; /* برای نمایش اعداد انگلیسی */
+  direction: ltr;
   text-align: left;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input-group input::placeholder {
-  color: var(--text-muted);
+  color: var(--auth-muted);
 }
 
 .input-group input:focus {
-  border-color: var(--purple);
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
+  border-color: var(--auth-cyan);
+  box-shadow: 0 0 0 4px rgba(0, 217, 255, 0.15);
 }
 
 .input-group.error input {
-  border-color: var(--error-color);
-  box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+  border-color: var(--auth-error);
+  box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.15);
 }
 
 .error-message {
-  color: var(--error-color);
+  color: var(--auth-error);
   font-size: 13px;
   margin-bottom: 15px;
   text-align: center;
 }
 
-/* ========== دکمه اصلی ========== */
+/* دکمه اصلی */
 .btn-primary {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, var(--purple), var(--blue), var(--pink));
+  background: var(--auth-gradient);
   background-size: 200% 200%;
   border: none;
   border-radius: 12px;
-  color: white;
+  color: #05060d;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
-  transition: var(--transition);
-  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 217, 255, 0.25);
   animation: gradientShift 3s ease infinite;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(236, 72, 153, 0.4);
+  box-shadow: 0 12px 30px rgba(139, 44, 255, 0.3);
+  color: #fff;
 }
 
 .btn-primary:active {
@@ -255,38 +286,39 @@ form h2 {
   }
 }
 
-/* ========== فوتر فرم ========== */
+/* فوتر فرم */
 .auth-footer {
   margin-top: 25px;
   text-align: center;
-  color: var(--text-muted);
+  color: var(--auth-muted);
   font-size: 14px;
 }
 
 .auth-footer a {
-  color: var(--pink);
+  color: var(--auth-cyan);
   text-decoration: none;
-  font-weight: bold;
-  transition: var(--transition);
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .auth-footer a:hover {
-  color: var(--purple);
+  color: var(--auth-violet);
 }
 
 .timer {
-  color: var(--blue);
+  color: var(--auth-blue);
   font-weight: bold;
   direction: ltr;
   display: inline-block;
 }
 
-/* ========== ورودی‌های کد تایید ========== */
+/* ورودی‌های کد تایید */
 .code-inputs {
   display: flex;
   justify-content: center;
   gap: 15px;
   margin: 25px 0;
+  direction: ltr;
 }
 
 .code-inputs input {
@@ -295,36 +327,37 @@ form h2 {
   text-align: center;
   font-size: 32px;
   font-weight: bold;
-  background: var(--input-bg);
-  border: 2px solid var(--glass-border);
+  background: var(--auth-input-bg);
+  border: 2px solid var(--auth-glass-border);
   border-radius: 12px;
-  color: var(--text-light);
+  color: var(--auth-text);
   outline: none;
-  transition: var(--transition);
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .code-inputs input:focus {
-  border-color: var(--purple);
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
+  border-color: var(--auth-cyan);
+  box-shadow: 0 0 0 4px rgba(0, 217, 255, 0.15);
   transform: scale(1.05);
 }
 
-/* ========== لینک تغییر شماره ========== */
+/* لینک تغییر شماره */
 .change-number {
   display: block;
   text-align: center;
   margin-top: 20px;
-  color: var(--text-muted);
+  color: var(--auth-muted);
   text-decoration: none;
   font-size: 14px;
-  transition: var(--transition);
+  transition: color 0.3s ease;
 }
 
 .change-number:hover {
-  color: var(--pink);
+  color: var(--auth-cyan);
 }
 
-/* ========== ریسپانسیو ========== */
+/* ریسپانسیو */
 @media (max-width: 480px) {
   .auth-card {
     padding: 30px 20px;
