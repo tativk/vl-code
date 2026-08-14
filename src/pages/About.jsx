@@ -7,6 +7,7 @@ import ValuesSection from "../components/About/ValuesSection";
 import ProcessSection from "../components/About/ProcessSection";
 import TeamSection from "../components/About/TeamSection";
 import FinalCTA from "../components/About/FinalCTA";
+import ScrollToTop from "../components/ScrollToTop";
 
 const About = () => {
   return (
