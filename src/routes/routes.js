@@ -6,6 +6,8 @@ import Login from "../pages/Login";
 import Verification from "../pages/Verification";
 import About from "../pages/About";
 import Rules from "../pages/Rules";  
+import FAQ from "../pages/FAQ";
+
 
 
 const AppRoutes = () => {
@@ -17,7 +19,7 @@ const AppRoutes = () => {
       <Route path="/verification" element={<Verification />} />
       <Route path="/about" element={<About />} />
       <Route path="/rules" element={<Rules />} /> 
-
+      <Route path="/faq" element={<FAQ />} />
     </Routes>
   );
 };
