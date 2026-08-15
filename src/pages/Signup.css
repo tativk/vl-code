@@ -1,16 +1,14 @@
-/* =========================================
-   LOGIN — Fixed, non-scrolling stage
-========================================= */
+/* Signup.css */
 
-.login {
-  --login-bg: #03040c;
-  --login-text: #f5f7ff;
-  --login-muted: rgba(245, 247, 255, 0.5);
-  --login-muted-2: rgba(245, 247, 255, 0.32);
-  --login-line: rgba(255, 255, 255, 0.1);
-  --login-cyan: #00d9ff;
-  --login-blue: #315cff;
-  --login-violet: #8b2cff;
+.signup {
+  --signup-bg: #03040c;
+  --signup-text: #f5f7ff;
+  --signup-muted: rgba(245, 247, 255, 0.5);
+  --signup-muted-2: rgba(245, 247, 255, 0.32);
+  --signup-line: rgba(255, 255, 255, 0.1);
+  --signup-cyan: #00d9ff;
+  --signup-blue: #315cff;
+  --signup-violet: #8b2cff;
 
   position: relative;
   display: flex;
@@ -22,12 +20,12 @@
 
   overflow: hidden;
 
-  color: var(--login-text);
-  background: var(--login-bg);
+  color: var(--signup-text);
+  background: var(--signup-bg);
   font-family: "Vazirmatn", "Segoe UI", sans-serif;
 }
 
-.login::before {
+.signup::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -39,16 +37,14 @@
   pointer-events: none;
 }
 
-.login > * {
+.signup > * {
   position: relative;
   z-index: 1;
 }
 
-/* =========================================
-   Ambient glow blobs
-========================================= */
+/* Ambient glow blobs */
 
-.login__glow {
+.signup__glow {
   position: absolute;
   z-index: 0;
   border-radius: 50%;
@@ -56,7 +52,7 @@
   pointer-events: none;
 }
 
-.login__glow--a {
+.signup__glow--a {
   width: 420px;
   height: 420px;
   left: 8%;
@@ -64,7 +60,7 @@
   background: rgba(0, 217, 255, 0.16);
 }
 
-.login__glow--b {
+.signup__glow--b {
   width: 460px;
   height: 460px;
   right: 8%;
@@ -72,32 +68,28 @@
   background: rgba(139, 44, 255, 0.16);
 }
 
-/* =========================================
-   Floating particles
-========================================= */
+/* Floating particles */
 
-.login__particles {
+.signup__particles {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
 }
 
-.login__particle {
+.signup__particle {
   position: absolute;
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: var(--login-cyan);
+  background: var(--signup-cyan);
   box-shadow: 0 0 6px 1px rgba(0, 217, 255, 0.8);
   opacity: 0.7;
 }
 
-/* =========================================
-   CARD
-========================================= */
+/* Card */
 
-.login__card {
+.signup__card {
   position: relative;
 
   display: flex;
@@ -116,7 +108,7 @@
   overflow: hidden;
 }
 
-.login__card-border {
+.signup__card-border {
   position: absolute;
   inset: -1px;
   z-index: 0;
@@ -125,10 +117,10 @@
 
   background: conic-gradient(
     from 0deg,
-    var(--login-cyan),
-    var(--login-blue),
-    var(--login-violet),
-    var(--login-cyan)
+    var(--signup-cyan),
+    var(--signup-blue),
+    var(--signup-violet),
+    var(--signup-cyan)
   );
 
   -webkit-mask:
@@ -140,11 +132,9 @@
   pointer-events: none;
 }
 
-/* =========================================
-   LEFT — Brand panel
-========================================= */
+/* Brand panel */
 
-.login__brand-panel {
+.signup__brand-panel {
   position: relative;
   z-index: 1;
 
@@ -156,29 +146,22 @@
   padding: clamp(20px, 3vw, 40px);
   text-align: center;
 
-  border-left: 1px solid var(--login-line);
+  border-left: 1px solid var(--signup-line);
 }
 
-.login__logo {
+.signup__logo {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.login__logo-mark {
+.signup__logo-mark {
   width: clamp(90px, 9vw, 130px);
   height: auto;
   object-fit: contain;
 }
-.login__logo-name {
-  margin-top: 4px;
-  font-weight: 800;
-  font-size: clamp(15px, 1.3vw, 18px);
-  letter-spacing: 0.16em;
-  color: #ffffff;
-  direction: ltr;
-}
-.login__logo-text {
+
+.signup__logo-text {
   margin-top: 8px;
   font-weight: 800;
   font-size: clamp(14px, 1.3vw, 17px);
@@ -188,28 +171,18 @@
   direction: ltr;
 }
 
-.login__logo-text-accent {
-  background: linear-gradient(100deg, var(--login-blue), var(--login-violet));
+.signup__logo-text-accent {
+  background: linear-gradient(100deg, var(--signup-blue), var(--signup-violet));
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-}
-.login__logo-sub {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  background: linear-gradient(100deg, var(--login-blue), var(--login-violet));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  direction: ltr;
 }
 
-.login__welcome {
+.signup__welcome {
   margin-top: clamp(22px, 4vw, 44px);
 }
 
-.login__welcome-title {
+.signup__welcome-title {
   margin: 0;
   font-size: clamp(24px, 2.4vw, 32px);
   font-weight: 800;
@@ -217,21 +190,21 @@
   color: #ffffff;
 }
 
-.login__welcome-title-clip {
+.signup__welcome-title-clip {
   display: block;
   overflow: hidden;
 }
 
-.login__welcome-title-inner {
+.signup__welcome-title-inner {
   display: block;
 }
 
-.login__welcome-title-shine {
+.signup__welcome-title-shine {
   display: inline-block;
   background-image: linear-gradient(
     100deg,
     #ffffff 40%,
-    var(--login-cyan) 50%,
+    var(--signup-cyan) 50%,
     #ffffff 60%
   );
   background-size: 220% 100%;
@@ -241,57 +214,16 @@
   color: #ffffff;
 }
 
-.login__welcome-text {
+.signup__welcome-text {
   margin: 8px 0 0;
   font-size: clamp(12px, 1vw, 14px);
   line-height: 1.8;
-  color: var(--login-muted);
+  color: var(--signup-muted);
 }
 
-.login__features {
-  display: flex;
-  gap: clamp(14px, 2.4vw, 32px);
-  justify-content: center;
+/* Form panel */
 
-  margin: auto 0 0;
-  padding: 0;
-  padding-top: 16px;
-  list-style: none;
-}
-
-.login__feature {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-
-  font-size: 10.5px;
-  color: var(--login-muted);
-}
-
-.login__feature-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 34px;
-  height: 34px;
-
-  border: 1px solid var(--login-line);
-  border-radius: 50%;
-  color: rgba(245, 247, 255, 0.75);
-}
-
-.login__feature-icon svg {
-  width: 15px;
-  height: 15px;
-}
-
-/* =========================================
-   RIGHT — Form panel
-========================================= */
-
-.login__form-panel {
+.signup__form-panel {
   position: relative;
   z-index: 1;
 
@@ -301,85 +233,73 @@
   align-items: center;
 }
 
-.login__form {
+.signup__form {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: clamp(14px, 2vw, 20px);
 }
 
-.login__field {
+.signup__field {
   display: flex;
   flex-direction: column;
   gap: 7px;
 }
 
-.login__label {
+.signup__label {
   font-size: 12.5px;
   font-weight: 500;
-  color: var(--login-muted);
+  color: var(--signup-muted);
 }
 
-.login__input-wrap {
+.signup__input-wrap {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.login__input-icon {
+.signup__input-icon {
   position: absolute;
   right: 14px;
 
   width: 16px;
   height: 16px;
 
-  color: var(--login-muted-2);
+  color: var(--signup-muted-2);
   pointer-events: none;
 }
 
-.login__input {
+.signup__input {
   width: 100%;
 
   padding: 12px 42px 12px 16px;
 
   font-family: inherit;
   font-size: 12.5px;
-  color: var(--login-text);
+  color: var(--signup-text);
 
   background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--login-line);
+  border: 1px solid var(--signup-line);
   border-radius: 10px;
 
   outline: none;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.login__input::placeholder {
-  color: var(--login-muted-2);
+.signup__input::placeholder {
+  color: var(--signup-muted-2);
 }
 
-.login__input:focus {
+.signup__input:focus {
   border-color: rgba(0, 217, 255, 0.5);
   background: rgba(255, 255, 255, 0.05);
 }
 
-.login__forgot {
-  align-self: flex-start;
-
-  font-size: 11.5px;
-  font-weight: 500;
-  color: var(--login-violet);
-  text-decoration: none;
-}
-
-.login__forgot:hover {
-  text-decoration: underline;
-}
-
-.login__submit {
+.signup__submit {
   position: relative;
   overflow: hidden;
 
+  margin-top: 4px;
   padding: 13px;
 
   font-family: inherit;
@@ -387,7 +307,7 @@
   font-weight: 700;
   color: #ffffff;
 
-  background: linear-gradient(100deg, var(--login-blue), var(--login-violet));
+  background: linear-gradient(100deg, var(--signup-blue), var(--signup-violet));
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -395,20 +315,20 @@
   transition: filter 0.2s ease, transform 0.2s ease;
 }
 
-.login__submit:hover {
+.signup__submit:hover {
   filter: brightness(1.1);
 }
 
-.login__submit:active {
+.signup__submit:active {
   transform: translateY(1px);
 }
 
-.login__submit-label {
+.signup__submit-label {
   position: relative;
   z-index: 1;
 }
 
-.login__submit-sheen {
+.signup__submit-sheen {
   position: absolute;
   inset: 0;
   width: 40%;
@@ -422,7 +342,7 @@
   pointer-events: none;
 }
 
-.login__divider {
+.signup__divider {
   display: flex;
   align-items: center;
   gap: 18px;
@@ -434,7 +354,7 @@
   color: rgba(245, 247, 255, 0.45);
 }
 
-.login__divider span {
+.signup__divider span {
   flex: 1;
   height: 1.5px;
   background: linear-gradient(
@@ -445,60 +365,57 @@
   );
 }
 
-.login__divider em {
+.signup__divider em {
   font-style: normal;
   white-space: nowrap;
 }
-.login__signup {
+
+.signup__signin {
   margin: 0;
   font-size: 12.5px;
-  color: var(--login-muted);
+  color: var(--signup-muted);
   text-align: center;
 }
 
-.login__signup-link {
+.signup__signin-link {
   font-weight: 700;
-  color: var(--login-blue);
+  color: var(--signup-blue);
   text-decoration: underline;
 }
 
-/* =========================================================
-   TABLET  575px — 1199px
-========================================================= */
+/* TABLET  575px — 1199px */
 
 @media (min-width: 575px) and (max-width: 1199px) {
-  .login__card {
+  .signup__card {
     flex-direction: column;
     width: min(88vw, 520px);
     max-height: 92dvh;
     overflow-y: auto;
   }
 
-  .login__brand-panel {
+  .signup__brand-panel {
     border-left: none;
-    border-bottom: 1px solid var(--login-line);
+    border-bottom: 1px solid var(--signup-line);
     padding-bottom: 20px;
   }
 
-  .login__welcome {
+  .signup__welcome {
     margin-top: 22px;
   }
 
-  .login__form-panel {
+  .signup__form-panel {
     align-items: stretch;
   }
 }
 
-/* =========================================================
-   MOBILE  300px — 574px
-========================================================= */
+/* MOBILE  300px — 574px */
 
 @media (min-width: 300px) and (max-width: 574px) {
-  .login {
+  .signup {
     padding: 10px;
   }
 
-  .login__card {
+  .signup__card {
     flex-direction: column;
     width: 100%;
     max-height: 96dvh;
@@ -506,85 +423,61 @@
     overflow-y: auto;
   }
 
-  .login__brand-panel {
+  .signup__brand-panel {
     border-left: none;
-    border-bottom: 1px solid var(--login-line);
+    border-bottom: 1px solid var(--signup-line);
     padding: 18px 16px;
   }
 
-  .login__logo-mark {
-    width: 30px;
-    height: 30px;
-  }
-
-  .login__welcome {
+  .signup__welcome {
     margin-top: 16px;
   }
 
-  .login__welcome-title {
+  .signup__welcome-title {
     font-size: 21px;
   }
 
-  .login__welcome-text {
+  .signup__welcome-text {
     font-size: 12px;
   }
 
-  .login__features {
-    margin-top: 16px;
-    padding-top: 12px;
-    gap: 12px;
-  }
-
-  .login__feature-icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .login__feature-label {
-    font-size: 9.5px;
-  }
-
-  .login__form-panel {
+  .signup__form-panel {
     padding: 18px 16px;
     align-items: stretch;
   }
 
-  .login__form {
+  .signup__form {
     gap: 12px;
   }
 
-  .login__input {
+  .signup__input {
     padding: 11px 38px 11px 14px;
     font-size: 12.5px;
   }
 
-  .login__submit {
+  .signup__submit {
     padding: 12px;
     font-size: 13.5px;
   }
 
-  .login__glow--a,
-  .login__glow--b {
+  .signup__glow--a,
+  .signup__glow--b {
     width: 260px;
     height: 260px;
     filter: blur(60px);
   }
 }
 
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
 @media (prefers-reduced-motion: reduce) {
-  .login__card-border {
+  .signup__card-border {
     animation: none !important;
   }
 
-  .login__particle {
+  .signup__particle {
     display: none;
   }
 
-  .login__submit-sheen {
+  .signup__submit-sheen {
     display: none;
   }
 }

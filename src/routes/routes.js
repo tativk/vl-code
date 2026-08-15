@@ -7,6 +7,7 @@ import Verification from "../pages/Verification";
 import About from "../pages/About";
 import Rules from "../pages/Rules";  
 import FAQ from "../pages/FAQ";
+import Signup from "../pages/Signup";
 
 
 
@@ -20,6 +21,7 @@ const AppRoutes = () => {
       <Route path="/about" element={<About />} />
       <Route path="/rules" element={<Rules />} /> 
       <Route path="/faq" element={<FAQ />} />
+      <Route path="/signup" element={<Signup />} />
     </Routes>
   );
 };
