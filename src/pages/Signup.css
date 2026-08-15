@@ -1,4 +1,6 @@
-/* Signup.css */
+/* =========================================
+   SIGNUP — Fixed, non-scrolling stage
+========================================= */
 
 .signup {
   --signup-bg: #03040c;
@@ -23,6 +25,14 @@
   color: var(--signup-text);
   background: var(--signup-bg);
   font-family: "Vazirmatn", "Segoe UI", sans-serif;
+
+  box-sizing: border-box;
+}
+
+.signup *,
+.signup *::before,
+.signup *::after {
+  box-sizing: border-box;
 }
 
 .signup::before {
@@ -68,7 +78,7 @@
   background: rgba(139, 44, 255, 0.16);
 }
 
-/* Floating particles */
+/* Floating particles — Updated to match Verify style */
 
 .signup__particles {
   position: absolute;
@@ -79,11 +89,11 @@
 
 .signup__particle {
   position: absolute;
-  width: 3px;
-  height: 3px;
+  width: 2px;
+  height: 2px;
   border-radius: 50%;
   background: var(--signup-cyan);
-  box-shadow: 0 0 6px 1px rgba(0, 217, 255, 0.8);
+  box-shadow: 0 0 8px rgba(0, 217, 255, 0.7);
   opacity: 0.7;
 }
 
@@ -91,20 +101,14 @@
 
 .signup__card {
   position: relative;
-
   display: flex;
   direction: ltr;
   width: min(92vw, 920px);
   max-height: 88dvh;
-
   border-radius: 20px;
   background: rgba(6, 9, 20, 0.78);
   backdrop-filter: blur(18px);
-
-  box-shadow:
-    0 0 0 1px rgba(49, 92, 255, 0.12),
-    0 30px 80px rgba(0, 0, 0, 0.55);
-
+  box-shadow: 0 0 0 1px rgba(49, 92, 255, 0.12), 0 30px 80px rgba(0, 0, 0, 0.55);
   overflow: hidden;
 }
 
@@ -114,21 +118,10 @@
   z-index: 0;
   border-radius: 21px;
   padding: 1.5px;
-
-  background: conic-gradient(
-    from 0deg,
-    var(--signup-cyan),
-    var(--signup-blue),
-    var(--signup-violet),
-    var(--signup-cyan)
-  );
-
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
+  background: conic-gradient(from 0deg, var(--signup-cyan), var(--signup-blue), var(--signup-violet), var(--signup-cyan));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-
   pointer-events: none;
 }
 
@@ -137,15 +130,12 @@
 .signup__brand-panel {
   position: relative;
   z-index: 1;
-
   flex: 1 1 46%;
   display: flex;
   flex-direction: column;
   align-items: center;
-
   padding: clamp(20px, 3vw, 40px);
   text-align: center;
-
   border-left: 1px solid var(--signup-line);
 }
 
@@ -201,12 +191,7 @@
 
 .signup__welcome-title-shine {
   display: inline-block;
-  background-image: linear-gradient(
-    100deg,
-    #ffffff 40%,
-    var(--signup-cyan) 50%,
-    #ffffff 60%
-  );
+  background-image: linear-gradient(100deg, #ffffff 40%, var(--signup-cyan) 50%, #ffffff 60%);
   background-size: 220% 100%;
   background-position-x: 180%;
   background-clip: text;
@@ -221,12 +206,46 @@
   color: var(--signup-muted);
 }
 
+.signup__features {
+  display: flex;
+  gap: clamp(14px, 2.4vw, 32px);
+  justify-content: center;
+  margin: auto 0 0;
+  padding: 0;
+  padding-top: 16px;
+  list-style: none;
+}
+
+.signup__feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: var(--signup-muted);
+}
+
+.signup__feature-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--signup-line);
+  border-radius: 50%;
+  color: rgba(245, 247, 255, 0.75);
+}
+
+.signup__feature-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
 /* Form panel */
 
 .signup__form-panel {
   position: relative;
   z-index: 1;
-
   flex: 1 1 54%;
   padding: clamp(20px, 3vw, 40px);
   display: flex;
@@ -261,27 +280,21 @@
 .signup__input-icon {
   position: absolute;
   right: 14px;
-
   width: 16px;
   height: 16px;
-
   color: var(--signup-muted-2);
   pointer-events: none;
 }
 
 .signup__input {
   width: 100%;
-
   padding: 12px 42px 12px 16px;
-
   font-family: inherit;
   font-size: 12.5px;
   color: var(--signup-text);
-
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--signup-line);
   border-radius: 10px;
-
   outline: none;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
@@ -298,20 +311,16 @@
 .signup__submit {
   position: relative;
   overflow: hidden;
-
   margin-top: 4px;
   padding: 13px;
-
   font-family: inherit;
   font-size: 14px;
   font-weight: 700;
   color: #ffffff;
-
   background: linear-gradient(100deg, var(--signup-blue), var(--signup-violet));
   border: none;
   border-radius: 10px;
   cursor: pointer;
-
   transition: filter 0.2s ease, transform 0.2s ease;
 }
 
@@ -333,12 +342,7 @@
   inset: 0;
   width: 40%;
   transform: translateX(-160%) skewX(-20deg);
-  background: linear-gradient(
-    100deg,
-    transparent,
-    rgba(255, 255, 255, 0.45),
-    transparent
-  );
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.45), transparent);
   pointer-events: none;
 }
 
@@ -346,9 +350,7 @@
   display: flex;
   align-items: center;
   gap: 18px;
-
   margin: 2px 0;
-
   font-size: 15px;
   font-weight: 400;
   color: rgba(245, 247, 255, 0.45);
@@ -357,12 +359,7 @@
 .signup__divider span {
   flex: 1;
   height: 1.5px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.22) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.22) 50%, transparent 100%);
 }
 
 .signup__divider em {
@@ -383,13 +380,19 @@
   text-decoration: underline;
 }
 
-/* TABLET  575px — 1199px */
+/* =========================================================
+   TABLET  575px — 1199px
+========================================================= */
 
 @media (min-width: 575px) and (max-width: 1199px) {
+  .signup {
+    padding: 10px;
+  }
+
   .signup__card {
     flex-direction: column;
     width: min(88vw, 520px);
-    max-height: 92dvh;
+    max-height: calc(100dvh - 20px);
     overflow-y: auto;
   }
 
@@ -408,17 +411,19 @@
   }
 }
 
-/* MOBILE  300px — 574px */
+/* =========================================================
+   MOBILE  300px — 574px
+========================================================= */
 
 @media (min-width: 300px) and (max-width: 574px) {
   .signup {
-    padding: 10px;
+    padding: 8px;
   }
 
   .signup__card {
     flex-direction: column;
     width: 100%;
-    max-height: 96dvh;
+    max-height: calc(100dvh - 16px);
     border-radius: 16px;
     overflow-y: auto;
   }
@@ -467,6 +472,10 @@
     filter: blur(60px);
   }
 }
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .signup__card-border {

@@ -1,8 +1,6 @@
-// Signup.jsx
 import React, { useLayoutEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import gsap from "gsap";
-// import logoImg from "../../public/Asets/logo-bk.png";
 import "./Signup.css";
 
 const Signup = () => {
@@ -14,16 +12,16 @@ const Signup = () => {
   const particlesRef = useRef([]);
 
   const logoMarkRef = useRef(null);
-
   const titleInnerRef = useRef(null);
   const titleShineRef = useRef(null);
   const welcomeTextRef = useRef(null);
+  const featureItemsRef = useRef([]);
 
   const fieldRefs = useRef([]);
   const buttonRef = useRef(null);
   const buttonSheenRef = useRef(null);
   const dividerRef = useRef(null);
-  const signupRef = useRef(null);
+  const signinRef = useRef(null);
 
   const nameInputRef = useRef(null);
   const phoneInputRef = useRef(null);
@@ -32,9 +30,10 @@ const Signup = () => {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
+        "(prefers-reduced-motion: reduce)"
       ).matches;
 
+      const features = featureItemsRef.current.filter(Boolean);
       const fields = fieldRefs.current.filter(Boolean);
       const particles = particlesRef.current.filter(Boolean);
 
@@ -47,12 +46,13 @@ const Signup = () => {
             logoMarkRef.current,
             titleInnerRef.current,
             welcomeTextRef.current,
+            ...features,
             ...fields,
             buttonRef.current,
             dividerRef.current,
-            signupRef.current,
+            signinRef.current,
           ],
-          { autoAlpha: 1, clearProps: "transform,filter" },
+          { autoAlpha: 1, clearProps: "transform,filter" }
         );
         return;
       }
@@ -71,37 +71,44 @@ const Signup = () => {
           duration: 1.05,
           ease: "power4.out",
         },
-        0,
+        0
       )
         .fromTo(
           logoMarkRef.current,
           { scale: 0, rotate: -140, autoAlpha: 0 },
-          {
-            scale: 1,
-            rotate: 0,
-            autoAlpha: 1,
-            duration: 0.85,
-            ease: "back.out(2.6)",
-          },
-          0.55,
+          { scale: 1, rotate: 0, autoAlpha: 1, duration: 0.85, ease: "back.out(2.6)" },
+          0.55
         )
         .fromTo(
           titleInnerRef.current,
           { yPercent: 105 },
           { yPercent: 0, duration: 0.85, ease: "power4.out" },
-          1.05,
+          1.05
         )
         .fromTo(
           welcomeTextRef.current,
           { autoAlpha: 0, y: 10 },
           { autoAlpha: 1, y: 0, duration: 0.5 },
-          1.35,
+          1.35
+        )
+        .fromTo(
+          features,
+          { autoAlpha: 0, y: 18, scale: 0.6 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.55,
+            stagger: 0.09,
+            ease: "back.out(2.2)",
+          },
+          1.5
         )
         .fromTo(
           fields,
           { autoAlpha: 0, y: 20 },
           { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.12 },
-          0.8,
+          0.75
         )
         .fromTo(
           buttonRef.current,
@@ -113,13 +120,13 @@ const Signup = () => {
             duration: 0.6,
             ease: "back.out(2.4)",
           },
-          1.4,
+          1.35
         )
         .fromTo(
-          [dividerRef.current, signupRef.current],
+          [dividerRef.current, signinRef.current],
           { autoAlpha: 0 },
           { autoAlpha: 1, duration: 0.5, stagger: 0.1 },
-          1.65,
+          1.6
         );
 
       if (borderRef.current) {
@@ -164,7 +171,7 @@ const Signup = () => {
                 repeat: -1,
                 repeatDelay: 1.8,
                 ease: "power1.inOut",
-              },
+              }
             );
           }
 
@@ -172,13 +179,7 @@ const Signup = () => {
             gsap.fromTo(
               buttonSheenRef.current,
               { xPercent: -160 },
-              {
-                xPercent: 160,
-                duration: 1.5,
-                repeat: -1,
-                repeatDelay: 2.4,
-                ease: "power1.inOut",
-              },
+              { xPercent: 160, duration: 1.5, repeat: -1, repeatDelay: 2.4, ease: "power1.inOut" }
             );
           }
         });
@@ -190,219 +191,135 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // TODO: اینجا باید اطلاعات (نام، شماره، رمز) به سرور/API ارسال بشه
-    // const name = nameInputRef.current.value;
-    // const phone = phoneInputRef.current.value;
-    // const password = passwordInputRef.current.value;
-
-    navigate("/");
+    navigate("/verify");
   };
 
   return (
-    <div className="login" ref={pageRef}>
-      <div className="login__glow login__glow--a" aria-hidden="true" />
-      <div className="login__glow login__glow--b" aria-hidden="true" />
+    <div className="signup" ref={pageRef}>
+      <div className="signup__glow signup__glow--a" aria-hidden="true" />
+      <div className="signup__glow signup__glow--b" aria-hidden="true" />
 
-      <div className="login__particles" aria-hidden="true">
+      <div className="signup__particles" aria-hidden="true">
         {Array.from({ length: 7 }).map((_, i) => (
           <span
             key={i}
             ref={(el) => (particlesRef.current[i] = el)}
-            className="login__particle"
+            className="signup__particle"
             style={{ left: `${10 + i * 12}%`, top: `${20 + ((i * 17) % 60)}%` }}
           />
         ))}
       </div>
 
-      <div className="login__card" ref={cardRef}>
-        <span
-          className="login__card-border"
-          ref={borderRef}
-          aria-hidden="true"
-        />
+      <div className="signup__card" ref={cardRef}>
+        <span className="signup__card-border" ref={borderRef} aria-hidden="true" />
 
-        <div className="login__brand-panel" dir="rtl">
-          <div className="login__logo">
+        <div className="signup__brand-panel" dir="rtl">
+          <div className="signup__logo">
             <img
               ref={logoMarkRef}
-              className="login__logo-mark"
+              className="signup__logo-mark"
               src="/Asets/logo-bk.png"
               alt="Velora Code"
             />
-            <span className="login__logo-text">
-              velora <span className="login__logo-text-accent">code</span>
+            <span className="signup__logo-text">
+              velora <span className="signup__logo-text-accent"><br></br>code</span>
             </span>
           </div>
 
-          <div className="login__welcome">
-            <h1 className="login__welcome-title">
-              <span className="login__welcome-title-clip">
-                <span
-                  ref={titleInnerRef}
-                  className="login__welcome-title-inner"
-                >
-                  <span
-                    ref={titleShineRef}
-                    className="login__welcome-title-shine"
-                  >
+          <div className="signup__welcome">
+            <h1 className="signup__welcome-title">
+              <span className="signup__welcome-title-clip">
+                <span ref={titleInnerRef} className="signup__welcome-title-inner">
+                  <span ref={titleShineRef} className="signup__welcome-title-shine">
                     ایجاد حساب کاربری
                   </span>
                 </span>
               </span>
             </h1>
 
-            <p ref={welcomeTextRef} className="login__welcome-text">
+            <p ref={welcomeTextRef} className="signup__welcome-text">
               برای شروع، اطلاعات خود را وارد کنید
             </p>
           </div>
+
+          <ul className="signup__features" aria-label="ویژگی‌ها">
+            <li className="signup__feature" ref={(el) => (featureItemsRef.current[0] = el)}>
+              <span className="signup__feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+                  <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <span className="signup__feature-label">امن و مطمئن</span>
+            </li>
+            <li className="signup__feature" ref={(el) => (featureItemsRef.current[1] = el)}>
+              <span className="signup__feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+                </svg>
+              </span>
+              <span className="signup__feature-label">سرعت بالا</span>
+            </li>
+            <li className="signup__feature" ref={(el) => (featureItemsRef.current[2] = el)}>
+              <span className="signup__feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.4" />
+                  <path d="M5 20c1.2-3.6 4-5.4 7-5.4s5.8 1.8 7 5.4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+                </svg>
+              </span>
+              <span className="signup__feature-label">پشتیبانی ۲۴ ساعته</span>
+            </li>
+          </ul>
         </div>
 
-        <div className="login__form-panel" dir="rtl">
-          <form className="login__form" onSubmit={handleSubmit} noValidate>
-            <div
-              className="login__field"
-              ref={(el) => (fieldRefs.current[0] = el)}
-            >
-              <label className="login__label" htmlFor="name">
-                نام و نام خانوادگی
-              </label>
-
-              <div className="login__input-wrap">
-                <svg
-                  className="login__input-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="12"
-                    cy="8"
-                    r="3.2"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                  />
-                  <path
-                    d="M5 20c1.2-3.6 4-5.4 7-5.4s5.8 1.8 7 5.4"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                    strokeLinecap="round"
-                  />
+        <div className="signup__form-panel" dir="rtl">
+          <form className="signup__form" onSubmit={handleSubmit} noValidate>
+            <div className="signup__field" ref={(el) => (fieldRefs.current[0] = el)}>
+              <label className="signup__label" htmlFor="name">نام و نام خانوادگی</label>
+              <div className="signup__input-wrap">
+                <svg className="signup__input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.4" />
+                  <path d="M5 20c1.2-3.6 4-5.4 7-5.4s5.8 1.8 7 5.4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
                 </svg>
-
-                <input
-                  id="name"
-                  type="text"
-                  className="login__input"
-                  placeholder="نام خود را وارد کنید"
-                  ref={nameInputRef}
-                  autoComplete="name"
-                  required
-                />
+                <input id="name" type="text" className="signup__input" placeholder="نام خود را وارد کنید" ref={nameInputRef} autoComplete="name" required />
               </div>
             </div>
 
-            <div
-              className="login__field"
-              ref={(el) => (fieldRefs.current[1] = el)}
-            >
-              <label className="login__label" htmlFor="phone">
-                شماره موبایل
-              </label>
-
-              <div className="login__input-wrap">
-                <svg
-                  className="login__input-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1v3.4c0 .6-.4 1-1 1C10.5 21 3 13.5 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z"
-                    stroke="currentColor"
-                    strokeWidth="1.3"
-                    strokeLinejoin="round"
-                  />
+            <div className="signup__field" ref={(el) => (fieldRefs.current[1] = el)}>
+              <label className="signup__label" htmlFor="phone">شماره موبایل</label>
+              <div className="signup__input-wrap">
+                <svg className="signup__input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1v3.4c0 .6-.4 1-1 1C10.5 21 3 13.5 3 4c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" />
                 </svg>
-
-                <input
-                  id="phone"
-                  type="tel"
-                  inputMode="numeric"
-                  className="login__input"
-                  placeholder="شماره موبایل خود را وارد کنید"
-                  ref={phoneInputRef}
-                  autoComplete="tel"
-                  required
-                />
+                <input id="phone" type="tel" inputMode="numeric" className="signup__input" placeholder="شماره موبایل خود را وارد کنید" ref={phoneInputRef} autoComplete="tel" required />
               </div>
             </div>
 
-            <div
-              className="login__field"
-              ref={(el) => (fieldRefs.current[2] = el)}
-            >
-              <label className="login__label" htmlFor="signup-password">
-                رمز عبور
-              </label>
-
-              <div className="login__input-wrap">
-                <svg
-                  className="login__input-icon"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="5"
-                    y="10.5"
-                    width="14"
-                    height="9.5"
-                    rx="2"
-                    stroke="currentColor"
-                    strokeWidth="1.3"
-                  />
-                  <path
-                    d="M8 10.5V7.5a4 4 0 018 0v3"
-                    stroke="currentColor"
-                    strokeWidth="1.3"
-                  />
+            <div className="signup__field" ref={(el) => (fieldRefs.current[2] = el)}>
+              <label className="signup__label" htmlFor="signup-password">رمز عبور</label>
+              <div className="signup__input-wrap">
+                <svg className="signup__input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="5" y="10.5" width="14" height="9.5" rx="2" stroke="currentColor" strokeWidth="1.3" />
+                  <path d="M8 10.5V7.5a4 4 0 018 0v3" stroke="currentColor" strokeWidth="1.3" />
                 </svg>
-
-                <input
-                  id="signup-password"
-                  type="password"
-                  className="login__input"
-                  placeholder="رمز عبور را وارد کنید"
-                  ref={passwordInputRef}
-                  autoComplete="new-password"
-                  required
-                />
+                <input id="signup-password" type="password" className="signup__input" placeholder="رمز عبور را وارد کنید" ref={passwordInputRef} autoComplete="new-password" required />
               </div>
             </div>
 
-            <Link to="/verify" className="login__submit">
-              <button type="submit"  className="verify_p" ref={buttonRef}>
-                <span
-                  ref={buttonSheenRef}
-                  className="login__submit-sheen"
-                  aria-hidden="true"
-                />
-                <span className="login__submit-label">ثبت‌نام</span>
-              </button>
-            </Link>
+            <button type="submit" className="signup__submit" ref={buttonRef}>
+              <span ref={buttonSheenRef} className="signup__submit-sheen" aria-hidden="true" />
+              <span className="signup__submit-label">ثبت‌نام</span>
+            </button>
 
-            <div className="login__divider" ref={dividerRef}>
+            <div className="signup__divider" ref={dividerRef}>
               <span />
               <em>یا</em>
               <span />
             </div>
 
-            <p className="login__signup" ref={signupRef}>
+            <p className="signup__signin" ref={signinRef}>
               قبلاً حساب دارید؟{" "}
-              <Link to="/login" className="login__signup-link">
-                ورود به حساب
-              </Link>
+              <Link to="/login" className="signup__signin-link">ورود به حساب</Link>
             </p>
           </form>
         </div>
