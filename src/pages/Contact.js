@@ -19,13 +19,11 @@ const Contact = () => {
       <div className="contact-overlay"></div>
 
       <div className="contact-container">
+        {/* ================= Hero ================= */}
         <section className="contact-hero">
           <h1 className="contact-hero-title">
-            <span className="contact-hero-fa">تماس با ما</span>
-            <span className="contact-hero-brand">
-              <span className="contact-brand-text">Velora Code</span>
-              <span className="contact-brand-line"></span>
-            </span>
+            <span className="contact-hero-fa">تماس با</span>
+            <span className="contact-hero-brand">Velora Code</span>
           </h1>
           <p>
             اگر برای طراحی وب‌سایت، طراحی رابط کاربری، توسعه فرانت‌اند یا
@@ -35,6 +33,7 @@ const Contact = () => {
           </p>
         </section>
 
+        {/* ================= Map ================= */}
         <section className="contact-map-section">
           <div className="contact-map-card">
             <div className="contact-map-badge">
@@ -51,6 +50,7 @@ const Contact = () => {
           </div>
         </section>
 
+        {/* ================= اطلاعات تماس ================= */}
         <div className="contact-grid">
           <div className="contact-glass">
             <div className="contact-section-title">
@@ -59,6 +59,7 @@ const Contact = () => {
             </div>
 
             <div className="contact-info-grid">
+              {/* تلفن ثابت */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaPhoneAlt />
@@ -71,6 +72,7 @@ const Contact = () => {
                 </p>
               </div>
 
+              {/* موبایل */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaMobileAlt />
@@ -83,6 +85,7 @@ const Contact = () => {
                 </p>
               </div>
 
+              {/* ایمیل */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaEnvelope />
@@ -93,6 +96,7 @@ const Contact = () => {
                 </p>
               </div>
 
+              {/* آدرس */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaMapMarkerAlt />
@@ -107,6 +111,7 @@ const Contact = () => {
                 </p>
               </div>
 
+              {/* ساعات پاسخگویی */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaClock />
@@ -121,6 +126,7 @@ const Contact = () => {
                 </p>
               </div>
 
+              {/* گیت‌هاب */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaGithub />
@@ -137,6 +143,7 @@ const Contact = () => {
                 </p>
               </div>
 
+              {/* پشتیبانی آنلاین */}
               <div className="contact-info-card contact-support-card">
                 <div className="contact-info-icon">
                   <FaHeadset />
