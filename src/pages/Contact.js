@@ -15,25 +15,32 @@ import {
 const Contact = () => {
   return (
     <div className="contact-page">
+      <div className="contact-ambient-glow"></div>
+
       <div className="contact-bg"></div>
       <div className="contact-overlay"></div>
 
       <div className="contact-container">
-        {/* ================= Hero ================= */}
         <section className="contact-hero">
           <h1 className="contact-hero-title">
             <span className="contact-hero-fa">تماس با</span>
             <span className="contact-hero-brand">Velora Code</span>
           </h1>
-          <p>
-            اگر برای طراحی وب‌سایت، طراحی رابط کاربری، توسعه فرانت‌اند یا
-            دریافت مشاوره درباره پروژه خود نیاز به راهنمایی دارید،
-            از طریق راه‌های ارتباطی زیر با ما در ارتباط باشید.
-            تیم Velora Code در سریع‌ترین زمان ممکن پاسخگوی شما خواهد بود.
+
+          <p className="contact-hero-desc">
+            <span className="contact-desc-full">
+              اگر برای طراحی وب‌سایت، طراحی رابط کاربری، توسعه فرانت‌اند یا
+              دریافت مشاوره درباره پروژه خود نیاز به راهنمایی دارید،
+              از طریق راه‌های ارتباطی زیر با ما در ارتباط باشید.
+              تیم Velora Code در سریع‌ترین زمان ممکن پاسخگوی شما خواهد بود.
+            </span>
+            <span className="contact-desc-short">
+              برای همکاری، مشاوره یا دریافت خدمات طراحی و توسعه وب،
+              با تیم Velora Code در ارتباط باشید.
+            </span>
           </p>
         </section>
 
-        {/* ================= Map ================= */}
         <section className="contact-map-section">
           <div className="contact-map-card">
             <div className="contact-map-badge">
@@ -42,15 +49,24 @@ const Contact = () => {
             </div>
 
             <iframe
-              title="Velora Code Location"
-              src="https://maps.google.com/maps?q=استان%20همدان%20شهرستان%20ملایر%20بلوار%20قائم‌مقام%20میدان%20استاندارد%20خیابان%20خبرنگار%20کوچه%20باران&z=17&output=embed"
+              title="موقعیت دفتر مرکزی Velora Code"
+              src="https://maps.google.com/maps?q=34.297669340431256,48.830378713011136&z=17&output=embed"
               loading="lazy"
               allowFullScreen
             />
+
+            <a
+              className="contact-map-route"
+              href="https://www.google.com/maps/dir/?api=1&destination=34.297669340431256,48.830378713011136"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="مسیریابی به دفتر مرکزی Velora Code"
+            >
+              مسیریابی
+            </a>
           </div>
         </section>
 
-        {/* ================= اطلاعات تماس ================= */}
         <div className="contact-grid">
           <div className="contact-glass">
             <div className="contact-section-title">
@@ -59,59 +75,52 @@ const Contact = () => {
             </div>
 
             <div className="contact-info-grid">
-              {/* تلفن ثابت */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaPhoneAlt />
                 </div>
                 <h3>تلفن ثابت</h3>
                 <p>
-                  <a href="tel:08132278117" dir="ltr" className="contact-phone-number">
+                  <a href="tel:08132278117" dir="ltr" className="contact-phone-number" aria-label="تماس با تلفن ثابت">
                     081-32278117
                   </a>
                 </p>
               </div>
 
-              {/* موبایل */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaMobileAlt />
                 </div>
                 <h3>شماره موبایل</h3>
                 <p>
-                  <a href="tel:09376821896" dir="ltr" className="contact-phone-number">
+                  <a href="tel:09376821896" dir="ltr" className="contact-phone-number" aria-label="تماس با شماره موبایل">
                     09376821896
                   </a>
                 </p>
               </div>
 
-              {/* ایمیل */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaEnvelope />
                 </div>
                 <h3>ایمیل</h3>
                 <p>
-                  <a href="mailto:info@velora-code.ir">info@velora-code.ir</a>
+                  <a href="mailto:info@velora-code.ir" aria-label="ارسال ایمیل به Velora Code">
+                    info@velora-code.ir
+                  </a>
                 </p>
               </div>
 
-              {/* آدرس */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaMapMarkerAlt />
                 </div>
                 <h3>آدرس دفتر</h3>
                 <p>
-                  استان همدان، شهرستان ملایر
-                  <br />
-                  بلوار قائم‌مقام، میدان استاندارد
-                  <br />
-                  خیابان خبرنگار، کوچه باران
+                  استان همدان شهرستان ملایر  بلوار سیف الدوله
                 </p>
               </div>
 
-              {/* ساعات پاسخگویی */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaClock />
@@ -126,7 +135,6 @@ const Contact = () => {
                 </p>
               </div>
 
-              {/* گیت‌هاب */}
               <div className="contact-info-card">
                 <div className="contact-info-icon">
                   <FaGithub />
@@ -143,7 +151,6 @@ const Contact = () => {
                 </p>
               </div>
 
-              {/* پشتیبانی آنلاین */}
               <div className="contact-info-card contact-support-card">
                 <div className="contact-info-icon">
                   <FaHeadset />
