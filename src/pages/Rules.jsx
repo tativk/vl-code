@@ -109,11 +109,21 @@ const Rules = () => {
 
   return (
     <div className="rules-page">
+      {/* دیو عکس پس‌زمینه با position: fixed */}
+      <div
+        className="rules-image-bg"
+        style={{
+          backgroundImage: `url(${process.env.PUBLIC_URL}/Asets/back.png)`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      ></div>
+
       <div className="rules-bg"></div>
       <div className="rules-overlay"></div>
 
       <div className="rules-container">
-        {/* Hero */}
         <header className="rules-hero">
           <h1 className="rules-hero-title">
             <span className="rules-hero-fa">قوانین و مقررات</span>
@@ -129,9 +139,7 @@ const Rules = () => {
           </p>
         </header>
 
-        {/* Layout: Sidebar + Main Content */}
         <div className="rules-layout">
-          {/* Sidebar Navigation */}
           <aside className="rules-sidebar">
             <nav className="rules-nav">
               <span className="rules-nav-title">فهرست قوانین</span>
@@ -153,7 +161,6 @@ const Rules = () => {
             </nav>
           </aside>
 
-          {/* Main Content */}
           <main className="rules-main">
             {sections.map((section) => {
               const Icon = section.icon;
