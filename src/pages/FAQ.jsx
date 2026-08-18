@@ -108,6 +108,17 @@ const FAQ = () => {
 
   return (
     <div className="faq-page">
+      {/* دیو عکس پس‌زمینه (ثابت و شفاف) */}
+      <div
+        className="faq-image-bg"
+        style={{
+          backgroundImage: `url(${process.env.PUBLIC_URL}/Asets/back.png)`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      ></div>
+
       <div className="faq-bg"></div>
       <div className="faq-overlay"></div>
 
@@ -127,7 +138,7 @@ const FAQ = () => {
           </p>
         </header>
 
-        {/* نوار جستجو و فیلتر */}
+        {/* نوار جستجو و فیلتر (چسبان) */}
         <div className="faq-toolbar">
           <div className="faq-search-box">
             <FaSearch className="faq-search-icon" />
