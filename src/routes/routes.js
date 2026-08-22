@@ -3,6 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Contact from "../pages/Contact";
 import Login from "../pages/Login";
+import Learning from "../pages/Learning";
 
 import About from "../pages/About";
 import Rules from "../pages/Rules";  
@@ -19,7 +20,7 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/login" element={<Login />} />
-      
+      <Route path="/learning" element={<Learning />} />
       <Route path="/about" element={<About />} />
       <Route path="/rules" element={<Rules />} /> 
       <Route path="/faq" element={<FAQ />} />
