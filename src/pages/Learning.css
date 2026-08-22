@@ -1,44 +1,54 @@
-
 /* ============================== */
 /* Learning - استایل‌های اصلی صفحه */
 /* ============================== */
- 
+
 .Learning {
+  --learning-bg: #03040c;
+  --learning-cyan: #00d9ff;
+  --learning-blue: #315cff;
+  --learning-violet: #8b2cff;
+  --learning-gradient: linear-gradient(
+    100deg,
+    var(--learning-cyan) 0%,
+    var(--learning-blue) 48%,
+    var(--learning-violet) 100%
+  );
+
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #05060a;
-  background-image: url("../../public/Asets/back.png");
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: 100% auto;
+  background-color: var(--learning-bg);
   font-family: "Vazirmatn", "IRANSans", "Tahoma", sans-serif;
   overflow-x: hidden;
 }
- 
+
+/* پس‌زمینه ثابت و پوششی، مشابه بقیه صفحات */
+.Learning::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url("../../public/Asets/back.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.Learning > * {
+  position: relative;
+  z-index: 1;
+}
+
 .Learning * {
   box-sizing: border-box;
 }
- 
-/* بک‌گراند مشترکه، پس هر سکشن باید شفاف باشه تا پشت‌زمینه‌ی یکپارچه دیده بشه */
+
+/* همه سکشن‌ها شفاف باشند تا بک‌گراند یکپارچه دیده شود */
 .Learning .hero,
 .Learning .popular-courses,
 .Learning .learning-path {
   background: transparent;
-}
- 
-/* Tablet */
-@media (max-width: 1023px) {
-  .Learning {
-    background-size: 200% auto;
-  }
-}
- 
-/* Mobile */
-@media (max-width: 639px) {
-  .Learning {
-    background-size: 300% auto;
-  }
 }
 
 /* ============================== */
@@ -49,12 +59,12 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 48px;
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+  gap: 40px;
   width: 100%;
   min-height: 100vh;
-  padding: 120px 64px 60px;
-  background: #05060a;
+  padding: 110px 64px 60px;
   overflow: hidden;
   font-family: "Vazirmatn", "IRANSans", "Tahoma", sans-serif;
 }
@@ -62,8 +72,20 @@
 .hero__content {
   position: relative;
   z-index: 2;
-  max-width: 560px;
+  flex: 0 1 600px;
+  max-width: 600px;
   text-align: right;
+}
+
+.hero__laptop-wrap {
+  position: relative;
+  z-index: 1;
+  flex: 0 1 780px;
+  max-width: 780px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 900px;
 }
 
 .hero__badge {
@@ -72,8 +94,8 @@
   gap: 8px;
   padding: 8px 18px;
   border-radius: 999px;
-  border: 1px solid rgba(124, 58, 237, 0.5);
-  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(139, 44, 255, 0.5);
+  background: rgba(139, 44, 255, 0.08);
   color: #c4b5fd;
   font-size: 13px;
   margin-bottom: 28px;
@@ -83,8 +105,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #a855f7;
-  box-shadow: 0 0 8px 2px rgba(168, 85, 247, 0.7);
+  background: var(--learning-violet);
+  box-shadow: 0 0 8px 2px rgba(139, 44, 255, 0.7);
 }
 
 .hero__heading {
@@ -96,7 +118,7 @@
 }
 
 .hero__heading-accent {
-  background: linear-gradient(90deg, #7c3aed, #a855f7);
+  background: var(--learning-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -113,7 +135,7 @@
   display: inline-block;
   padding: 14px 30px;
   border-radius: 10px;
-  border: 1.5px solid #7c3aed;
+  border: 1.5px solid var(--learning-violet);
   background: transparent;
   color: #f5f5f7;
   font-family: inherit;
@@ -125,8 +147,8 @@
 }
 
 .hero__cta:hover {
-  background: rgba(124, 58, 237, 0.15);
-  box-shadow: 0 0 24px -4px rgba(124, 58, 237, 0.6);
+  background: rgba(139, 44, 255, 0.15);
+  box-shadow: 0 0 24px -4px rgba(139, 44, 255, 0.6);
 }
 
 .hero__stats {
@@ -154,17 +176,6 @@
 .hero__stat span {
   color: #9aa1b1;
   font-size: 12px;
-}
-
-.hero__laptop-wrap {
-  position: relative;
-  z-index: 1;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-width: 640px;
-  perspective: 900px;
 }
 
 .hero__laptop-img {
@@ -224,7 +235,6 @@
   }
 }
 
-
 /* ==========================
 PopularCourses
 ========================== */
@@ -232,7 +242,6 @@ PopularCourses
   position: relative;
   width: 100%;
   padding: 96px 24px 72px;
-  background: #05060a;
   font-family: "Vazirmatn", "IRANSans", "Tahoma", sans-serif;
   text-align: center;
   overflow: hidden;
@@ -242,11 +251,11 @@ PopularCourses
   font-size: clamp(28px, 3.4vw, 42px);
   font-weight: 800;
   margin: 0 0 64px;
-  background: linear-gradient(90deg, #6ee7ff 0%, #3b82f6 50%, #7c3aed 100%);
+  background: var(--learning-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 40px rgba(59, 130, 246, 0.25);
+  text-shadow: 0 0 40px rgba(49, 92, 255, 0.25);
 }
 
 .popular-courses__grid {
@@ -400,5 +409,138 @@ PopularCourses
 
   .popular-courses__title {
     margin-bottom: 40px;
+  }
+}
+
+/* ============================== */
+/* Learning Path */
+/* ============================== */
+
+.learning-path {
+  position: relative;
+  width: 100%;
+  padding: 72px 24px 96px;
+  font-family: "Vazirmatn", "IRANSans", "Tahoma", sans-serif;
+  text-align: center;
+}
+
+.learning-path__title {
+  font-size: clamp(28px, 3.4vw, 42px);
+  font-weight: 800;
+  margin: 0 0 40px;
+  background: var(--learning-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.learning-path__frame {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.015);
+  overflow: hidden;
+}
+
+.learning-path__track {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.learning-path__track-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 3;
+}
+
+.learning-path__track-fg {
+  fill: none;
+  stroke: url(#learningPathGrad);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.learning-path__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  direction: ltr;
+}
+
+.learning-path__card {
+  direction: rtl;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px 28px;
+  border-radius: 16px;
+  background: #090b12;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.35s ease;
+}
+
+.learning-path__card:hover {
+  transform: translateY(-4px);
+}
+
+.learning-path__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  border: 1.5px solid color-mix(in srgb, var(--node-color) 50%, transparent);
+  background: color-mix(in srgb, var(--node-color) 10%, transparent);
+}
+
+.learning-path__card-title {
+  color: #f5f5f7;
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.learning-path__card-subtitle {
+  color: #9aa1b1;
+  font-size: 14px;
+  margin: 0 0 16px;
+}
+
+.learning-path__card-level {
+  font-size: 12px;
+  padding: 4px 14px;
+  border-radius: 999px;
+  color: var(--node-color);
+  border: 1px solid color-mix(in srgb, var(--node-color) 45%, transparent);
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  .learning-path__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .learning-path__track {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 639px) {
+  .learning-path {
+    padding: 56px 16px 64px;
+  }
+  .learning-path__grid {
+    grid-template-columns: 1fr;
   }
 }
