@@ -4,15 +4,13 @@ import Home from "../pages/Home";
 import Contact from "../pages/Contact";
 import Login from "../pages/Login";
 import Learning from "../pages/Learning";
-
 import About from "../pages/About";
-import Rules from "../pages/Rules";  
+import Rules from "../pages/Rules";
 import FAQ from "../pages/FAQ";
+import PortfolioList from "../pages/Portfolio-list";
+import PortfolioDetail from "../pages/Portfolio-detail";
 import Signup from "../pages/Signup";
-import { ImPacman } from "react-icons/im";
 import Verify from "../pages/Verify";
-
-
 
 const AppRoutes = () => {
   return (
@@ -22,12 +20,18 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/learning" element={<Learning />} />
       <Route path="/about" element={<About />} />
-      <Route path="/rules" element={<Rules />} /> 
+      <Route path="/portfolio" element={<PortfolioList />} />
+      <Route path="/portfolio/:id" element={<PortfolioDetail />} />
+      <Route path="/rules" element={<Rules />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/verify" element={<Verify />} />
     </Routes>
   );
+};
+
+export default AppRoutes;
+
 };
 
 export default AppRoutes;
