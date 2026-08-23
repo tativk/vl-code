@@ -1,379 +1,121 @@
-import React, { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const HomeHero = () => {
+const Hero = () => {
   const heroRef = useRef(null);
-  const titleLinesRef = useRef([]);
-  const brandRef = useRef(null);
-  const metaRef = useRef(null);
-  const statementRef = useRef(null);
-  const keywordsRef = useRef(null);
-  const scrollRef = useRef(null);
-  const backgroundTypeRef = useRef(null);
 
   useLayoutEffect(() => {
-    const hero = heroRef.current;
-
-    if (!hero) return;
-
     const ctx = gsap.context(() => {
-      const reduceMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
+      const imageWrapper = heroRef.current?.querySelector(".hero__image-wrapper");
+      const image = heroRef.current?.querySelector(".hero__image");
+      if (!imageWrapper || !image) return;
 
-      const titleLines = titleLinesRef.current.filter(Boolean);
+      // === حالت اولیه ===
+      gsap.set(imageWrapper, { clipPath: "inset(0 0 0 100%)" });
+      gsap.set(image, { scale: 1.25 });
+      gsap.set(".hero__title-first", { opacity: 0, y: 28 });
+      gsap.set(".hero__title-second", { opacity: 0, y: 28 });
+      gsap.set(".hero__description", { opacity: 0, y: 22 });
 
-      /*
-       * -----------------------------------------
-       * Initial state
-       * -----------------------------------------
-       */
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
-      gsap.set(hero, {
-        autoAlpha: 1,
+      // ۱. باز شدن پرده‌ای عکس
+      tl.to(imageWrapper, {
+        clipPath: "inset(0 0 0 0%)",
+        duration: 1.3,
+        ease: "power4.inOut",
+      }).to(image, { scale: 1, duration: 1.6, ease: "power3.out" }, "-=1.1");
+
+      // ۲و۳. عنوان و توضیحات
+      tl.to(".hero__title-first", { opacity: 1, y: 0, duration: 0.75 }, "-=0.9")
+        .to(".hero__title-second", { opacity: 1, y: 0, duration: 0.85 }, "-=0.55")
+        .to(".hero__description", { opacity: 1, y: 0, duration: 0.7 }, "-=0.45");
+
+      // idle zoom خیلی آروم و مداوم
+      gsap.to(image, {
+        scale: 1.06,
+        duration: 9,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
       });
 
-      if (reduceMotion) {
-        gsap.set(titleLines, {
-          yPercent: 0,
-          autoAlpha: 1,
-        });
-
-        gsap.set(
-          [
-            brandRef.current,
-            metaRef.current,
-            statementRef.current,
-            keywordsRef.current,
-            scrollRef.current,
-          ],
-          {
-            autoAlpha: 1,
-            clearProps: "transform",
-          }
-        );
-
-        return;
-      }
-
-      /*
-       * -----------------------------------------
-       * Intro animation
-       * -----------------------------------------
-       */
-
-      const intro = gsap.timeline({
-        defaults: {
-          ease: "power3.out",
-        },
+      // نور متحرک
+      gsap.to(".hero__image-light", {
+        xPercent: 220,
+        duration: 5.5,
+        ease: "power2.inOut",
+        repeat: -1,
+        repeatDelay: 4.5,
       });
 
-      intro
-        .fromTo(
-          brandRef.current,
-          {
-            y: -12,
-            autoAlpha: 0,
-          },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.65,
-          },
-          0.15
-        )
+      // پارالاکس با موس — فقط translate (بدون rotation تا تداخل با scale idle نداشته باشه)
+      const quickX = gsap.quickTo(image, "x", { duration: 0.6, ease: "power3.out" });
+      const quickY = gsap.quickTo(image, "y", { duration: 0.6, ease: "power3.out" });
+      const quickLightX = gsap.quickTo(imageWrapper, "rotationY", { duration: 0.6, ease: "power3.out" });
 
-        .fromTo(
-          metaRef.current,
-          {
-            y: -8,
-            autoAlpha: 0,
-          },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.55,
-          },
-          0.25
-        )
+      const handleMouseMove = (e) => {
+        const rect = imageWrapper.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+        quickX(px * 20);
+        quickY(py * 20);
+        quickLightX(px * 5); // چرخش سبک روی wrapper، perspective از CSS پدر میاد
+      };
 
-        .fromTo(
-          titleLines,
-          {
-            yPercent: 105,
-          },
-          {
-            yPercent: 0,
-            duration: 1,
-            stagger: 0.1,
-          },
-          0.35
-        )
+      const resetTilt = () => {
+        quickX(0);
+        quickY(0);
+        quickLightX(0);
+      };
 
-        .fromTo(
-          statementRef.current,
-          {
-            y: 18,
-            autoAlpha: 0,
-          },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.7,
-          },
-          0.95
-        )
-
-        .fromTo(
-          keywordsRef.current,
-          {
-            y: 12,
-            autoAlpha: 0,
-          },
-          {
-            y: 0,
-            autoAlpha: 1,
-            duration: 0.55,
-          },
-          1.1
-        )
-
-        .fromTo(
-          scrollRef.current,
-          {
-            autoAlpha: 0,
-          },
-          {
-            autoAlpha: 1,
-            duration: 0.5,
-          },
-          1.35
-        )
-
-        .fromTo(
-          backgroundTypeRef.current,
-          {
-            xPercent: 4,
-            autoAlpha: 0,
-          },
-          {
-            xPercent: 0,
-            autoAlpha: 1,
-            duration: 1.4,
-          },
-          0.3
-        );
-
-      /*
-       * -----------------------------------------
-       * Background typography parallax
-       *
-       * روی xPercent/autoAlpha تداخلی نداره،
-       * پس همون اول قابل ساختنه.
-       * -----------------------------------------
-       */
-
-      if (backgroundTypeRef.current) {
-        gsap.to(backgroundTypeRef.current, {
-          yPercent: -8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: hero,
-            start: "top top",
-            end: "bottom top",
-            scrub: 0.8,
-          },
-        });
-      }
-
-      /*
-       * -----------------------------------------
-       * انیمیشن‌های مداوم / اسکرولی که روی
-       * property مشترک با intro کار می‌کنن
-       * (yPercent تیتر، opacity نشانگر اسکرول)
-       *
-       * این‌ها رو عمداً تا تمومِ شدنِ intro
-       * به تعویق می‌ندازیم تا با تویین‌های
-       * ورودی overwrite/تداخل نکنن.
-       * -----------------------------------------
-       */
-
-      intro.eventCallback("onComplete", () => {
-        ctx.add(() => {
-          /*
-           * حرکت بسیار کمِ تیتر هنگام اسکرول.
-           * چون فقط بعد از پایان intro ساخته می‌شه،
-           * مقدار شروعش دقیقاً yPercent:0 (حالت نهاییِ
-           * انیمیشن ورود) capture می‌شه، نه یه مقدار
-           * وسط‌راهِ تصادفی.
-           */
-          if (titleLines.length) {
-            gsap.to(titleLines, {
-              yPercent: -5,
-              ease: "none",
-              scrollTrigger: {
-                trigger: hero,
-                start: "top top",
-                end: "bottom top",
-                scrub: 0.8,
-              },
-            });
-          }
-
-          /*
-           * پالسِ آرومِ نشانگر اسکرول.
-           * چون بعد از پایانِ fade-in (autoAlpha->1)
-           * ساخته می‌شه، دیگه با اون تویین روی
-           * opacity رقابت نمی‌کنه.
-           */
-          if (scrollRef.current) {
-            gsap.to(scrollRef.current, {
-              y: 8,
-              opacity: 0.55,
-              duration: 1.4,
-              repeat: -1,
-              yoyo: true,
-              ease: "sine.inOut",
-            });
-          }
-        });
+      imageWrapper.addEventListener("mousemove", handleMouseMove);
+      imageWrapper.addEventListener("mouseenter", () => {
+        gsap.to(image, { scale: 1.12, duration: 0.7, ease: "power3.out", overwrite: "auto" });
       });
+      imageWrapper.addEventListener("mouseleave", () => {
+        resetTilt();
+        gsap.to(image, { scale: 1.06, duration: 0.9, ease: "power3.out", overwrite: "auto" });
+      });
+
+      return () => {
+        imageWrapper.removeEventListener("mousemove", handleMouseMove);
+      };
     }, heroRef);
 
-    return () => {
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={heroRef}
-      className="home-hero"
-      dir="rtl"
-      aria-labelledby="home-hero-title"
-    >
-      {/* =========================================
-          Editorial Background Typography
-      ========================================= */}
-
-      <div
-        ref={backgroundTypeRef}
-        className="home-hero__background-type"
-        aria-hidden="true"
-      >
-        <span className="home-hero__background-word home-hero__background-word--one">
-          DESIGN
-        </span>
-
-        <span className="home-hero__background-word home-hero__background-word--two">
-          DIGITAL
-        </span>
-
-        <span className="home-hero__background-word home-hero__background-word--three">
-          MOTION
-        </span>
-      </div>
-
-      {/* =========================================
-          Brand
-      ========================================= */}
-
-      <div className="home-hero__brand">
-        <span ref={brandRef} className="home-hero__brand-name">
-          VELORA
-        </span>
-
-        <span ref={metaRef} className="home-hero__brand-meta">
-          DIGITAL STUDIO
-        </span>
-      </div>
-
-      {/* =========================================
-          Main Content
-      ========================================= */}
-
-      <div className="home-hero__content">
-        <div className="home-hero__eyebrow">
-          <span className="home-hero__eyebrow-line" />
-          <span>CREATIVE TECHNOLOGY</span>
+    <section ref={heroRef} className="hero">
+      <div className="hero__container">
+        {/* ستون ۱ — همیشه فیزیکاً چپ (چون .hero مستقل از dir سایت ltr هست) */}
+        <div className="hero__content">
+          <h1 className="hero__title">
+            <span className="hero__title-first">ایده شما،</span>
+            <span className="hero__title-second">وب‌سایتی ماندگار</span>
+          </h1>
+          <p className="hero__description">
+            ما یک تیم خلاق و حرفه‌ای هستیم که با طراحی و توسعه وب‌سایت‌های
+            مدرن کار می‌کنیم. کسب‌وکار شما را در دنیای دیجیتال متمایز می‌کنیم.
+          </p>
         </div>
 
-        <h1 id="home-hero-title" className="home-hero__title">
-          <span className="home-hero__title-line">
-            <span
-              ref={(element) => {
-                titleLinesRef.current[0] = element;
-              }}
-            >
-              تجربه‌های
-            </span>
-          </span>
-
-          <span className="home-hero__title-line">
-            <span
-              ref={(element) => {
-                titleLinesRef.current[1] = element;
-              }}
-              className="home-hero__title-line-accent"
-            >
-              دیجیتال
-            </span>
-          </span>
-
-          <span className="home-hero__title-line home-hero__title-line--small">
-            <span
-              ref={(element) => {
-                titleLinesRef.current[2] = element;
-              }}
-            >
-              ماندگار.
-            </span>
-          </span>
-        </h1>
-
-        <p ref={statementRef} className="home-hero__statement">
-          برای چیزهایی که قرار نیست فقط دیده شوند.
-        </p>
-
-        <div
-          ref={keywordsRef}
-          className="home-hero__keywords"
-          aria-label="Velora disciplines"
-        >
-          <span>DESIGN</span>
-          <span>/</span>
-          <span>CODE</span>
-          <span>/</span>
-          <span>MOTION</span>
+        {/* ستون ۲ — همیشه فیزیکاً راست */}
+        <div className="hero__visual">
+          <div className="hero__image-wrapper">
+            <img
+              src="/Asets/3.jpg"
+              alt="طراحی و توسعه وب‌سایت"
+              className="hero__image"
+              loading="lazy"
+            />
+            <div className="hero__image-light" aria-hidden="true" />
+          </div>
         </div>
-      </div>
-
-      {/* =========================================
-          Scroll
-      ========================================= */}
-
-      <div ref={scrollRef} className="home-hero__scroll" aria-hidden="true">
-        <span>SCROLL</span>
-
-        <span className="home-hero__scroll-line">
-          <span />
-        </span>
-      </div>
-
-      {/* =========================================
-          Side Index
-      ========================================= */}
-
-      <div className="home-hero__index" aria-hidden="true">
-        <span>01</span>
-        <span className="home-hero__index-line" />
-        <span>08</span>
       </div>
     </section>
   );
 };
 
-export default HomeHero;
+export default Hero;
