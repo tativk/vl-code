@@ -73,43 +73,56 @@
    Editorial / Typography Driven
 ========================================================= */
 /* ============================================
-   HERO — Pixel-Accurate from Screenshot
-   Text: RTL (Persian) · Layout: LTR (text left, image right)
+   HOME HERO — بدون کارت برای تصویر
+   فقط .home .hero اسکوپ شده تا استایل عمومی نباشد
 ============================================ */
 
-/* ============================================
-   HERO — Full‑width, Image Left / Text Right
-============================================ */
-
-.hero {
+.home .hero {
+  position: relative;
   width: 100%;
+  min-height: 100svh;
   overflow: hidden;
+  background: transparent;
+  color: var(--home-text);
+  font-family: "Vazirmatn", "Segoe UI", sans-serif;
+  direction: ltr;
+  box-sizing: border-box;
 }
 
-.hero__container {
-  width: 100%;                  /* دیگر ثابت نیست */
-  max-width: 1400px;            /* اختیاری، برای جلوگیری از بیش از حد عریض شدن */
+.home .hero *,
+.home .hero *::before,
+.home .hero *::after {
+  box-sizing: border-box;
+}
+
+/* ----- Container ----- */
+.home .hero__container {
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 48px 24px 0;        /* فاصله از لبه‌ها در دسکتاپ */
+  padding:
+    clamp(110px, 12vh, 160px)
+    clamp(20px, 5vw, 64px)
+    clamp(48px, 7vh, 80px);
 
   display: grid;
-  grid-template-columns: 1fr 1fr;   /* دو ستون مساوی */
-  gap: 42px;
-  align-items: center;          /* عمودی وسط‌چین */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  min-height: 100svh;
 }
 
-/* ----- ستون راست (متن) ----- */
-.hero__content {
+/* ----- ستون متن (چپ) ----- */
+.home .hero__content {
+  direction: rtl;
   width: 100%;
-  padding-top: 0;              /* دیگر padding-top ثابت نیست */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: right;
 }
 
-/* ----- عنوان ----- */
-.hero__title {
+.home .hero__title {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -121,86 +134,89 @@
   line-height: 1.12;
 }
 
-.hero__title-first {
+.home .hero__title-first {
   display: block;
   color: #ffffff;
-  font-size: clamp(40px, 5vw, 64px);  /* واکنش‌گرا */
+  font-size: clamp(32px, 4.5vw, 64px);
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: -1.5px;
-  white-space: nowrap;
 }
 
-.hero__title-second {
+.home .hero__title-second {
   display: block;
   margin-top: 2px;
-  font-size: clamp(44px, 5.5vw, 70px);
+  font-size: clamp(36px, 5vw, 70px);
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: -2px;
-  white-space: nowrap;
 
   background: linear-gradient(
     100deg,
     #1769ff 0%,
     #2658ff 40%,
     #4d1dff 75%,
-    #7118ff 100%
+    #8b2cff 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* ----- توضیحات ----- */
-.hero__description {
+.home .hero__description {
   width: 100%;
-  max-width: 600px;             /* محدودیت برای خوانایی */
-  margin: 30px 0 0;
-  padding: 0;
-  color: rgba(255, 255, 255, 0.68);
-  font-size: clamp(16px, 1.5vw, 20px);
+  max-width: 560px;
+  margin: clamp(18px, 2.5vw, 30px) 0 0;
+  color: var(--home-muted);
+  font-size: clamp(15px, 1.3vw, 20px);
   font-weight: 400;
   line-height: 2;
   text-align: right;
 }
 
-/* ----- ستون چپ (عکس) ----- */
-.hero__visual {
+/* ----- ستون عکس (راست) ----- */
+.home .hero__visual {
   width: 100%;
-  height: auto;
-  position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  perspective: 1200px;
 }
 
-/* ----- کادر عکس ----- */
-.hero__image-wrapper {
+/* =========================================
+   تصویر آزادانه، بدون قاب / کارت
+========================================= */
+.home .hero__image-wrapper {
   width: 100%;
-  aspect-ratio: 16 / 9;         /* نسبت ابعاد مناسب */
+  aspect-ratio: 16 / 9;
   position: relative;
-  overflow: hidden;
-  border-radius: 17px;
-  background: #080b20;
+
+  /* حذف کامل ظاهر کارت */
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  overflow: hidden;   /* فقط برای کلیپ نور، تغییر ظاهری ندارد */
   isolation: isolate;
-  box-shadow:
-    0 24px 65px rgba(0, 0, 0, 0.35),
-    0 0 0 1px rgba(255, 255, 255, 0.025);
+
   cursor: pointer;
   will-change: transform, opacity;
+  transform-style: preserve-3d;
 }
 
-.hero__image {
+.home .hero__image {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
   object-position: center;
-  transform: scale(1);
   will-change: transform;
+  border: none;
+  border-radius: 0;
 }
 
-/* ----- نور متحرک ----- */
-.hero__image-light {
+/* نور ظریف عبوری از روی تصویر */
+.home .hero__image-light {
   position: absolute;
   z-index: 2;
   top: -60%;
@@ -213,8 +229,8 @@
     90deg,
     transparent 0%,
     rgba(255, 255, 255, 0.02) 25%,
-    rgba(100, 100, 255, 0.16) 50%,
-    rgba(80, 120, 255, 0.04) 70%,
+    rgba(100, 100, 255, 0.18) 50%,
+    rgba(80, 120, 255, 0.05) 70%,
     transparent 100%
   );
   filter: blur(14px);
@@ -226,59 +242,51 @@
    RESPONSIVE — تبلت
 ============================================ */
 @media (max-width: 1024px) {
-  .hero__container {
+  .home .hero__container {
     gap: 32px;
-    padding: 40px 20px 0;
+    min-height: auto;
+    padding-top: 100px;
+    padding-bottom: 48px;
   }
 
-  .hero__title-first {
-    font-size: clamp(34px, 5vw, 50px);
-    white-space: normal;
-  }
-
-  .hero__title-second {
-    font-size: clamp(38px, 5.5vw, 56px);
-    white-space: normal;
+  .home .hero__image-wrapper {
+    aspect-ratio: 16 / 10;
   }
 }
 
 /* ============================================
-   RESPONSIVE — موبایل (تغییر به ستونی)
+   RESPONSIVE — موبایل (تک‌ستون، عکس اول، متن دوم)
 ============================================ */
 @media (max-width: 720px) {
-  .hero__container {
-    grid-template-columns: 1fr;   /* تک‌ستون */
-    gap: 32px;
-    padding: 24px 16px 0;
+  .home .hero__container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 88px 16px 40px;
+    min-height: auto;
   }
 
-  .hero__visual {
-    order: 1;                    /* عکس اول */
+  .home .hero__visual {
+    order: 1;
   }
 
-  .hero__content {
-    order: 2;                    /* متن دوم */
-    padding-top: 0;
-    align-items: flex-start;
+  .home .hero__content {
+    order: 2;
   }
 
-  .hero__title-first {
-    font-size: clamp(32px, 8vw, 45px);
-    white-space: normal;
+  .home .hero__title-first {
+    font-size: clamp(30px, 8vw, 42px);
   }
 
-  .hero__title-second {
-    font-size: clamp(36px, 9vw, 50px);
-    white-space: normal;
+  .home .hero__title-second {
+    font-size: clamp(34px, 9vw, 48px);
   }
 
-  .hero__description {
+  .home .hero__description {
     font-size: 15px;
-    line-height: 2;
     max-width: 100%;
   }
 
-  .hero__image-wrapper {
+  .home .hero__image-wrapper {
     aspect-ratio: 4 / 3;
   }
 }
@@ -287,27 +295,31 @@
    REDUCED MOTION
 ============================================ */
 @media (prefers-reduced-motion: reduce) {
-  .hero__image,
-  .hero__image-light,
-  .hero__image-wrapper {
+  .home .hero__image,
+  .home .hero__image-light,
+  .home .hero__image-wrapper {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
   }
 
-  .hero__image-wrapper {
+  .home .hero__image-wrapper {
     opacity: 1 !important;
     transform: none !important;
   }
 
-  .hero__title-first,
-  .hero__title-second,
-  .hero__description {
+  .home .hero__title-first,
+  .home .hero__title-second,
+  .home .hero__description {
     opacity: 1 !important;
     transform: none !important;
   }
 
-  .hero__image {
+  .home .hero__image {
     transform: scale(1) !important;
+  }
+
+  .home .hero__image-light {
+    display: none;
   }
 }
 

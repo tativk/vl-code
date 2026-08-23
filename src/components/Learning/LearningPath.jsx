@@ -11,7 +11,7 @@ const NODES = [
   { id: "html", icon: SiHtml5, title: "HTML", subtitle: "ساختار صفحه", level: "مقدماتی", color: "#f1512a", glow: "rgba(241, 81, 42, 0.5)" },
  { id: "css", icon: SiCssmodules, title: "CSS", subtitle: "طراحی استایل", level: "مقدماتی", color: "#2965f1", glow: "rgba(41, 101, 241, 0.5)" },
 
-  { id: "django", icon: SiDjango, title: "Django", subtitle: "فریمورک بکند", level: "پیشرفته", color: "#22c594", glow: "rgba(34, 197, 94, 0.5)" },
+  { id: "django", icon: SiDjango, title: "Django", subtitle: "فریمورک بکند", level: "پیشرفته", color: "#6cb9af", glow: "rgba(34, 197, 94, 0.5)" },
   { id: "react", icon: SiReact, title: "React", subtitle: "کتابخانه جاوااسکریپت", level: "پیشرفته", color: "#22d3ee", glow: "rgba(34, 211, 238, 0.5)" },
     { id: "job", icon: FaBriefcase, title: "استخدام", subtitle: "ورود به بازار کار", level: "پیشرفته", color: "#a855f7", glow: "rgba(168, 85, 247, 0.5)" },
 ];
