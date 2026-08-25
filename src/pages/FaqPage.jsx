@@ -108,7 +108,6 @@ function useRevealOnScroll(deps) {
     );
     refs.current.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deps]);
 
   return register;
@@ -121,8 +120,23 @@ export default function FaqPage() {
   const [activeChip, setActiveChip] = useState(CATEGORIES[0].id);
 
   const [question, setQuestion] = useState("");
-  const [status, setStatus] = useState("idle"); // idle | sending | sent
+  const [status, setStatus] = useState("idle");
   const [formError, setFormError] = useState("");
+
+  // ===== تایپ انیمیشن =====
+  const fullTitle = "سوالات متداول";
+  const [typedTitle, setTypedTitle] = useState("");
+  const [typingIndex, setTypingIndex] = useState(0);
+
+  useEffect(() => {
+    if (typingIndex < fullTitle.length) {
+      const timer = setTimeout(() => {
+        setTypedTitle((prev) => prev + fullTitle[typingIndex]);
+        setTypingIndex((prev) => prev + 1);
+      }, 80);
+      return () => clearTimeout(timer);
+    }
+  }, [typingIndex, fullTitle]);
 
   const filtered = useMemo(() => {
     const q = query.trim();
@@ -165,7 +179,6 @@ export default function FaqPage() {
     }
     setFormError("");
     setStatus("sending");
-    // این بخش را به سرویس واقعی پشتیبانی خودتان وصل کنید
     setTimeout(() => {
       setStatus("sent");
     }, 900);
@@ -173,6 +186,18 @@ export default function FaqPage() {
 
   return (
     <div className="faq-page">
+      <div
+        className="faq-bg-image"
+        style={{
+          backgroundImage: `url(${process.env.PUBLIC_URL}/Asets/back.png)`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      ></div>
+
+      <div className="faq-bg-overlay"></div>
+
       <div className="faq-page__ambient" aria-hidden="true">
         <div className="faq-page__glow faq-page__glow--a" />
         <div className="faq-page__glow faq-page__glow--b" />
@@ -183,9 +208,9 @@ export default function FaqPage() {
         <div className="faq-progress__bar" style={{ width: `${progress}%` }} />
       </div>
 
-      <div className="faq-page__inner">
-        <div className="faq-sticky-header">
-          <header className="faq-hero">
+      <header className="faq-sticky-header">
+        <div className="faq-sticky-inner">
+          <div className="faq-hero">
             <div className="faq-hero__window">
               <div className="faq-hero__dots" aria-hidden="true">
                 <span />
@@ -193,7 +218,10 @@ export default function FaqPage() {
                 <span />
               </div>
               <div className="faq-hero__body">
-                <h1 className="faq-hero__title">سوالات متداول</h1>
+                <h1 className="faq-hero__title">
+                  {typedTitle}
+                  <span className="faq-cursor">|</span>
+                </h1>
                 <p className="faq-hero__subtitle">
                   هر چیزی که درباره‌ی ولورا کد کنجکاوی هست، احتمالاً این‌جا جوابش را پیدا می‌کنی.
                   دسته‌ی مربوطه را انتخاب کن یا مستقیم توی سوالات جستجو کن.
@@ -213,7 +241,7 @@ export default function FaqPage() {
                 </div>
               </div>
             </div>
-          </header>
+          </div>
 
           <nav className="faq-toc" aria-label="فهرست دسته‌های سوالات">
             {CATEGORIES.map((cat) => (
@@ -228,8 +256,10 @@ export default function FaqPage() {
             ))}
           </nav>
         </div>
+      </header>
 
-        <main className="faq-content">
+      <main className="faq-content">
+        <div className="faq-content-inner">
           {filtered.length === 0 && (
             <p className="faq-empty">چیزی با این عبارت پیدا نشد؛ عبارت دیگری را امتحان کن.</p>
           )}
@@ -269,40 +299,40 @@ export default function FaqPage() {
               })}
             </section>
           ))}
-        </main>
 
-        <section className="faq-contact">
-          <h2 className="faq-contact__title">سوال دیگری داری؟</h2>
-          <p className="faq-contact__text">
-            اگر جواب سوالت این‌جا نبود، مستقیم برامون بنویس؛ تیم پشتیبانی معمولاً ظرف چند ساعت پاسخ می‌ده.
-          </p>
+          <section className="faq-contact">
+            <h2 className="faq-contact__title">سوال دیگری داری؟</h2>
+            <p className="faq-contact__text">
+              اگر جواب سوالت این‌جا نبود، مستقیم برامون بنویس؛ تیم پشتیبانی معمولاً ظرف چند ساعت پاسخ می‌ده.
+            </p>
 
-          {status === "sent" ? (
-            <div className="faq-contact__success">
-              <span className="faq-contact__success-icon">✓</span>
-              <p className="faq-contact__text" style={{ marginBottom: 0 }}>
-                سوالت ارسال شد. به‌زودی از طریق ایمیل حسابت جواب می‌گیری.
-              </p>
-            </div>
-          ) : (
-            <form className="faq-contact__form" onSubmit={handleSubmit}>
-              <textarea
-                value={question}
-                onChange={(e) => {
-                  setQuestion(e.target.value);
-                  if (formError) setFormError("");
-                }}
-                placeholder="سوالت رو این‌جا بنویس..."
-                aria-label="متن سوال"
-              />
-              {formError && <span className="faq-contact__error">{formError}</span>}
-              <button className="faq-contact__btn" type="submit" disabled={status === "sending"}>
-                {status === "sending" ? "در حال ارسال..." : "ارسال سوال"}
-              </button>
-            </form>
-          )}
-        </section>
-      </div>
+            {status === "sent" ? (
+              <div className="faq-contact__success">
+                <span className="faq-contact__success-icon">✓</span>
+                <p className="faq-contact__text" style={{ marginBottom: 0 }}>
+                  سوالت ارسال شد. به‌زودی از طریق ایمیل حسابت جواب می‌گیری.
+                </p>
+              </div>
+            ) : (
+              <form className="faq-contact__form" onSubmit={handleSubmit}>
+                <textarea
+                  value={question}
+                  onChange={(e) => {
+                    setQuestion(e.target.value);
+                    if (formError) setFormError("");
+                  }}
+                  placeholder="سوالت رو این‌جا بنویس..."
+                  aria-label="متن سوال"
+                />
+                {formError && <span className="faq-contact__error">{formError}</span>}
+                <button className="faq-contact__btn" type="submit" disabled={status === "sending"}>
+                  {status === "sending" ? "در حال ارسال..." : "ارسال سوال"}
+                </button>
+              </form>
+            )}
+          </section>
+        </div>
+      </main>
     </div>
   );
 }
