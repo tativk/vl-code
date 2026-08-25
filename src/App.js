@@ -9,10 +9,11 @@ const App = () => {
   return (
     <BrowserRouter>
 
-      <ScrollToTop />
+      
 
       <div className="App">
         <AppRoutes />
+        <ScrollToTop />
       </div>
 
     </BrowserRouter>
