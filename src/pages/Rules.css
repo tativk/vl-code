@@ -402,12 +402,7 @@
   transition: var(--transition);
 }
 
-.rules-list li:hover .rules-list-number {
-  background: var(--gradient-brand);
-  color: #fff;
-  border-color: transparent;
-  box-shadow: 0 0 15px rgba(0, 168, 240, 0.4);
-}
+
 
 .rules-list p {
   margin: 0;
