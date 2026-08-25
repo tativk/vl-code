@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap");
-
+/* sl */
 .vpl-page {
   --vpl-cyan: #38e8ff;
   --vpl-cyan-soft: #9af3ff;
@@ -949,6 +949,9 @@
     font-size: 16px;
   }
 }
+
+
+
 
 @media (max-width: 800px) {
   .vpl-cta-buttons {
