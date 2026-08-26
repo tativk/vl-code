@@ -6,7 +6,7 @@ import Login from "../pages/Login";
 import Learning from "../pages/Learning";
 import About from "../pages/About";
 import Rules from "../pages/Rules";
-import FAQ from "../pages/FAQ";
+import FAQ from "../pages/FaqPage";
 import PortfolioList from "../pages/Portfolio-list";
 import PortfolioDetail from "../pages/Portfolio-detail";
 import Signup from "../pages/Signup";
@@ -23,7 +23,7 @@ const AppRoutes = () => {
       <Route path="/portfolio" element={<PortfolioList />} />
       <Route path="/portfolio/:id" element={<PortfolioDetail />} />
       <Route path="/rules" element={<Rules />} />
-      <Route path="/faq" element={<FAQ />} />
+      <Route path="/FaqPage" element={<FAQ />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/verify" element={<Verify />} />
     </Routes>
