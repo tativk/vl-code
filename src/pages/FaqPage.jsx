@@ -223,8 +223,7 @@ export default function FaqPage() {
                   <span className="faq-cursor">|</span>
                 </h1>
                 <p className="faq-hero__subtitle">
-                  هر چیزی که درباره‌ی ولورا کد کنجکاوی هست، احتمالاً این‌جا جوابش را پیدا می‌کنی.
-                  دسته‌ی مربوطه را انتخاب کن یا مستقیم توی سوالات جستجو کن.
+                 هر چیزی درون دهنت میگذرد رو تبدیل به سوال کن و اینجا  دنبال جوابش باش...
                 </p>
                 <div className="faq-hero__search">
                   <svg className="faq-hero__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
