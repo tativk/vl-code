@@ -218,7 +218,7 @@ const LoginPage = () => {
               alt="Melora Code"
             />
             <span className="login__logo-text">
-              velora{" "}
+              Morena{" "}
               <span className="login__logo-text-accent">
                 <br />
                 code

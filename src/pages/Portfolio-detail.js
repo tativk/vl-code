@@ -58,7 +58,7 @@ const portfolioData = [
     review: {
       name: "مهندس رضایی",
       role: "مدیرعامل آرتا",
-      quote: "تیم Melora Code فراتر از انتظار ما ظاهر شد. طراحی مدرن و سرعت بی‌نظیر سایت باعث افزایش چشمگیر بازدید و فروش ما شد.",
+      quote: "تیم Morena Code فراتر از انتظار ما ظاهر شد. طراحی مدرن و سرعت بی‌نظیر سایت باعث افزایش چشمگیر بازدید و فروش ما شد.",
     },
     relatedProjects: [2, 3],
   },
@@ -99,7 +99,7 @@ const portfolioData = [
     review: {
       name: "سارا احمدی",
       role: "مدیر فروشگاه",
-      quote: "افزایش ۴۰٪ فروش فقط در ماه اول بعد از راه‌اندازی فروشگاه جدید با تیم Melora Code.",
+      quote: "افزایش ۴۰٪ فروش فقط در ماه اول بعد از راه‌اندازی فروشگاه جدید با تیم Morena Code.",
     },
     relatedProjects: [1, 5],
   },
@@ -534,7 +534,7 @@ const PortfolioDetail = () => {
             ref={(el) => (revealRefs.current[7] = el)}
           >
             <h2>آماده‌اید پروژه خود را شروع کنیم؟</h2>
-            <p>با تیم حرفه‌ای Melora Code، کسب‌وکارتان را به سطح بعدی ببرید.</p>
+            <p>با تیم حرفه‌ای Morena Code، کسب‌وکارتان را به سطح بعدی ببرید.</p>
             <div className="mohammad-portfolio-detail-actions">
               <Link
                 to="/order-project"
