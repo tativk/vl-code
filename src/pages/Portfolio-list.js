@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from "react";
 import "./Portfolio-list.css";
+import Header from "../components/Header-Footer/Header";
+import Footer from "../components/Header-Footer/Footer";
 
 import {
   FiArrowLeft,
@@ -124,7 +126,9 @@ export default function PortfolioList() {
   }, [activeFilter, search]);
 
   return (
-    <div className="vpl-page">
+    <main>
+      <Header />
+        <div className="vpl-page">
       <div className="vpl-overlay"></div>
       <div className="vpl-glow vpl-glow--one"></div>
       <div className="vpl-glow vpl-glow--two"></div>
@@ -337,5 +341,7 @@ export default function PortfolioList() {
         </div>
       </section>
     </div>
+    <Footer />
+    </main>
   );
 }

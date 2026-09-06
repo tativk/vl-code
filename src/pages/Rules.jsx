@@ -1,5 +1,7 @@
 import React from "react";
 import "./Rules.css";
+import Header from "../components/Header-Footer/Header";
+import Footer from "../components/Header-Footer/Footer";
 import {
   FaBalanceScale,
   FaCode,
@@ -108,7 +110,9 @@ const Rules = () => {
   ];
 
   return (
-    <div className="rules-page">
+   <main>
+    <Header />
+     <div className="rules-page">
       {/* دیو عکس پس‌زمینه با position: fixed */}
       <div
         className="rules-image-bg"
@@ -194,6 +198,8 @@ const Rules = () => {
         </div>
       </div>
     </div>
+    <Footer />
+   </main>
   );
 };
 

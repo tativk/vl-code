@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import Header from "../components/Header-Footer/Header";
+import Footer from "../components/Header-Footer/Footer";
 import {
   FiArrowRight,
   FiCheckCircle,
@@ -276,7 +278,9 @@ const PortfolioDetail = () => {
   );
 
   return (
-    <div className="mohammad-portfolio-detail-page">
+    <main>
+      <Header />
+          <div className="mohammad-portfolio-detail-page">
       <div className="mohammad-portfolio-detail-container">
         <div className="mohammad-portfolio-detail-hero">
           <img src={project.image} alt={project.title} />
@@ -580,6 +584,8 @@ const PortfolioDetail = () => {
         </div>
       )}
     </div>
+    <Footer />
+    </main>
   );
 };
 
