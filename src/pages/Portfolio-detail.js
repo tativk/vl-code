@@ -280,6 +280,8 @@ const PortfolioDetail = () => {
   return (
     <main>
       <Header />
+      <br>
+      </br>
           <div className="mohammad-portfolio-detail-page">
       <div className="mohammad-portfolio-detail-container">
         <div className="mohammad-portfolio-detail-hero">
