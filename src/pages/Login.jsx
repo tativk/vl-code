@@ -215,7 +215,7 @@ const LoginPage = () => {
               ref={logoMarkRef}
               className="login__logo-mark"
               src="/Asets/logo-bk.png"
-              alt="Velora Code"
+              alt="Melora Code"
             />
             <span className="login__logo-text">
               velora{" "}

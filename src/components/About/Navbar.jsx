@@ -56,7 +56,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="velora-nav" ref={navRef}>
-        <a href="#top" className="velora-nav-logo">VELORA CODE</a>
+        <a href="#top" className="velora-nav-logo">MELORA CODE</a>
         <ul className="velora-nav-links">
           {LINKS.map((l) => (
             <li key={l.label}>

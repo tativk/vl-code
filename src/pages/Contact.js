@@ -28,7 +28,7 @@ const Contact = () => {
         <section className="contact-hero">
           <h1 className="contact-hero-title">
             <span className="contact-hero-fa">تماس با</span>
-            <span className="contact-hero-brand">Velora Code</span>
+            <span className="contact-hero-brand">Melora Code</span>
           </h1>
 
           <p className="contact-hero-desc">
@@ -36,11 +36,11 @@ const Contact = () => {
               اگر برای طراحی وب‌سایت، طراحی رابط کاربری، توسعه فرانت‌اند یا
               دریافت مشاوره درباره پروژه خود نیاز به راهنمایی دارید،
               از طریق راه‌های ارتباطی زیر با ما در ارتباط باشید.
-              تیم Velora Code در سریع‌ترین زمان ممکن پاسخگوی شما خواهد بود.
+              تیم Melora Code در سریع‌ترین زمان ممکن پاسخگوی شما خواهد بود.
             </span>
             <span className="contact-desc-short">
               برای همکاری، مشاوره یا دریافت خدمات طراحی و توسعه وب،
-              با تیم Velora Code در ارتباط باشید.
+              با تیم Melora Code در ارتباط باشید.
             </span>
           </p>
         </section>
@@ -49,11 +49,11 @@ const Contact = () => {
           <div className="contact-map-card">
             <div className="contact-map-badge">
               <div className="contact-dot"></div>
-              <span>دفتر مرکزی Velora Code</span>
+              <span>دفتر مرکزی Melora Code</span>
             </div>
 
             <iframe
-              title="موقعیت دفتر مرکزی Velora Code"
+              title="موقعیت دفتر مرکزی Melora Code"
               src="https://maps.google.com/maps?q=34.297669340431256,48.830378713011136&z=17&output=embed"
               loading="lazy"
               allowFullScreen
@@ -64,7 +64,7 @@ const Contact = () => {
               href="https://www.google.com/maps/dir/?api=1&destination=34.297669340431256,48.830378713011136"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="مسیریابی به دفتر مرکزی Velora Code"
+              aria-label="مسیریابی به دفتر مرکزی Melora Code"
             >
               مسیریابی
             </a>
@@ -109,7 +109,7 @@ const Contact = () => {
                 </div>
                 <h3>ایمیل</h3>
                 <p>
-                  <a href="mailto:info@velora-code.ir" aria-label="ارسال ایمیل به Velora Code">
+                  <a href="mailto:info@velora-code.ir" aria-label="ارسال ایمیل به Melora Code">
                     info@velora-code.ir
                   </a>
                 </p>
