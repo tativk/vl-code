@@ -371,10 +371,10 @@ const Verify = () => {
               ref={logoMarkRef}
               className="verify__logo-mark"
               src="/Asets/logo-bk.png"
-              alt="Velora Code"
+              alt="Melora Code"
             />
             <div className="verify__logo-text">
-              VELORA <span className="verify__logo-text-accent"><br></br>CODE</span>
+              MELORA <span className="verify__logo-text-accent"><br></br>CODE</span>
             </div>
           </div>
 

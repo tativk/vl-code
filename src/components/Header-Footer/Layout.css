@@ -141,6 +141,14 @@
   font-family: "Vazirmatn", "IRANSans", "Tahoma", sans-serif;
 }
 
+/* صفحاتی که فوتر بیرون از ظرف پس‌زمینه‌دار رندر می‌شود
+   (تماس و نمونه‌کارها) پس‌زمینه‌ی تیره‌ی خودشان را ادامه می‌دهند */
+.contact-page ~ .footer,
+.vpl-page ~ .footer,
+.mohammad-portfolio-detail-page ~ .footer {
+  background: linear-gradient(180deg, #04060c 0%, #070a12 50%, #04060c 100%);
+}
+
 .footer__glow {
   position: absolute;
   top: -200px; left: 50%;

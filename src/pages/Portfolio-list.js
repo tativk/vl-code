@@ -141,7 +141,7 @@ export default function PortfolioList() {
               <input
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="جستجو بین نمونه کارهای Velora Code..."
+                placeholder="جستجو بین نمونه کارهای Melora Code..."
               />
             </div>
 
@@ -313,7 +313,7 @@ export default function PortfolioList() {
 
               <p>
                 وب‌سایت شما فقط یک صفحه اینترنتی نیست؛ ویترین اعتبار، اعتماد و رشد
-                برندتان است. در Velora Code، طراحی اختصاصی، توسعه اصولی، سئو حرفه‌ای،
+                برندتان است. در Melora Code، طراحی اختصاصی، توسعه اصولی، سئو حرفه‌ای،
                 امنیت بالا و سرعت واقعی کنار هم قرار می‌گیرند تا خروجی پروژه در سطح
                 برندهای جدی و آینده‌دار باشد.
               </p>
@@ -333,7 +333,7 @@ export default function PortfolioList() {
                   className="vpl-secondary-btn"
                   onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
                 >
-                  آشنایی بیشتر با Velora Code
+                  آشنایی بیشتر با Melora Code
                 </a>
               </div>
             </div>

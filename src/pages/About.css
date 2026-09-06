@@ -43,7 +43,7 @@
   pointer-events: none;
 }
 
-.about > * {
+.about > :not(.header) {
   position: relative;
   z-index: 1;
 }

@@ -219,7 +219,7 @@ const Signup = () => {
               ref={logoMarkRef}
               className="signup__logo-mark"
               src="/Asets/logo-bk.png"
-              alt="Velora Code"
+              alt="Melora Code"
             />
             <span className="signup__logo-text">
               velora <span className="signup__logo-text-accent"><br></br>code</span>
