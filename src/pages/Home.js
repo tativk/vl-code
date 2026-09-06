@@ -2,8 +2,6 @@ import React from "react";
 import "./Home.css";
 import Header from "../components/Header-Footer/Header";
 import Footer from "../components/Header-Footer/Footer";
-
-
 import HomeHero from "../components/Home/HomeHero";
 import Services from "../components/Home/Services";
 import HomeProjects from "../components/Home/HomeProjects";

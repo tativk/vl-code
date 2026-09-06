@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => (
   <footer className="velora-footer">
-    <span>© {new Date().getFullYear()} ولورا کد</span>
+    <span>© {new Date().getFullYear()} مورنا کد</span>
     <nav className="velora-footer-links">
       <a href="#top">بازگشت به بالا</a>
       <a href="#work">نمونه‌کارها</a>
