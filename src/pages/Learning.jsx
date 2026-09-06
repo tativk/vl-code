@@ -2,21 +2,23 @@ import React from "react";
 import Hero from "../components/Learning/Hero";
 import PopularCourses from "../components/Learning/PopularCourses";
 import LearningPath from "../components/Learning/LearningPath";
+import MainCourses from "../components/Learning/MainCourses";
 import Header from "../components/Header-Footer/Header";
 import Footer from "../components/Header-Footer/Footer";
 import "./Learning.css";
 
 const Learning = () => {
   return (
-    <main className="Learning" dir="rtl" >
+    <>
       <Header />
-      <Hero />
-      <LearningPath />
-      <PopularCourses />
+      <main className="Learning" dir="rtl">
+        <Hero />
+        <LearningPath />
+        <MainCourses />
+        <PopularCourses />
+      </main>
       <Footer />
-      
-    </main>
-
+    </>
   );
 };
 export default Learning;
