@@ -35,7 +35,7 @@
   max-width: 100vw;
   min-height: 100vh;
   padding: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   color: var(--text-main);
   font-family: "Vazirmatn", sans-serif;
   isolation: isolate;
@@ -141,11 +141,18 @@
 /* ===== هدر چسبنده با فاصله‌ی بیشتر ===== */
 .faq-sticky-header {
   position: sticky;
-  top: 120px;
+  top: 100px;
   z-index: 50;
   width: 100%;
-  padding: 20px 20px 0;
-  background: transparent;
+  padding: 20px 20px 16px;
+  /* ===== حذف کامل پس‌زمینه ===== */
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  /* ===== حذف هرگونه حاشیه یا سایه ===== */
+  border: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
 }
 
 .faq-sticky-inner {
@@ -162,8 +169,8 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
   overflow: hidden;
-  margin-top: 20px;
-  margin-bottom: 30px; /* ← فاصله‌ی بیشتر از فهرست دسته‌ها */
+  margin-top: -90px;
+  margin-bottom: 5px; /* ← فاصله‌ی بیشتر از فهرست دسته‌ها */
   position: relative;
   opacity: 0;
   transform: translateY(24px);
