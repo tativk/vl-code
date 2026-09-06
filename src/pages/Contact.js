@@ -1,6 +1,8 @@
 import React from "react";
 import "./Contact.css";
 import { Link } from "react-router-dom";
+import Header from "../components/Header-Footer/Header";
+import Footer from "../components/Header-Footer/Footer";
 
 import {
   FaPhoneAlt,
@@ -14,7 +16,9 @@ import {
 
 const Contact = () => {
   return (
-    <div className="contact-page">
+   <main>
+    <Header />
+     <div className="contact-page">
       <div className="contact-ambient-glow"></div>
 
       <div className="contact-bg"></div>
@@ -169,6 +173,9 @@ const Contact = () => {
         </div>
       </div>
     </div>
+    <Footer />
+   </main>
+   
   );
 };
 

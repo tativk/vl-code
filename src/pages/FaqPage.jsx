@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./FaqPage.css";
+import Header from "../components/Header-Footer/Header";
+import Footer from "../components/Header-Footer/Footer";
 
 const CATEGORIES = [
   {
@@ -185,7 +187,9 @@ export default function FaqPage() {
   };
 
   return (
-    <div className="faq-page">
+    <main>
+      <Header />
+      <div className="faq-page">
       <div
         className="faq-bg-image"
         style={{
@@ -333,5 +337,7 @@ export default function FaqPage() {
         </div>
       </main>
     </div>
+    <Footer />
+    </main>
   );
 }

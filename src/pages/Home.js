@@ -1,5 +1,7 @@
 import React from "react";
 import "./Home.css";
+import Header from "../components/Header-Footer/Header";
+import Footer from "../components/Header-Footer/Footer";
 
 
 import HomeHero from "../components/Home/HomeHero";
@@ -13,6 +15,7 @@ import FinalCTA from "../components/Home/FinalCTA";
 const Home = () => {
   return (
     <main className="home" dir="rtl">
+      <Header />
       <HomeHero />
       <Services />
       <HomeProjects />
@@ -20,6 +23,7 @@ const Home = () => {
       
       <Testimonials />
       <FinalCTA />
+      <Footer />
     </main>
   );
 };
